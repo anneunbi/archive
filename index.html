@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ICPC Problem Archive - Preserving 50 Years of Programming Contest History">
+    <meta name="keywords" content="ICPC, programming contests, competitive programming, archive">
+    <title>ICPC Problem Archive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Menlo:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header" role="banner">
+            <div class="header-content">
+                <img class="logo" src="https://placehold.co/80x80" alt="ICPC Archive Logo">
+                <div class="header-text">
+                    <h1 class="main-title">ICPC Problem Archive</h1>
+                    <p class="subtitle">Preserving 50 Years of Programming Contest History</p>
+                </div>
+                <div class="header-info">
+                    <div class="info-item">
+                        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M8.00004 14.6667C11.6819 14.6667 14.6667 11.6819 14.6667 8.00001C14.6667 4.31811 11.6819 1.33334 8.00004 1.33334C4.31814 1.33334 1.33337 4.31811 1.33337 8.00001C1.33337 11.6819 4.31814 14.6667 8.00004 14.6667Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 12C10.2091 12 12 10.2091 12 8C12 5.79086 10.2091 4 8 4C5.79086 4 4 5.79086 4 8C4 10.2091 5.79086 12 8 12Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7.99996 9.33332C8.73634 9.33332 9.33329 8.73637 9.33329 7.99999C9.33329 7.26361 8.73634 6.66666 7.99996 6.66666C7.26358 6.66666 6.66663 7.26361 6.66663 7.99999C6.66663 8.73637 7.26358 9.33332 7.99996 9.33332Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Collecting problems from all ICPC contests</span>
+                    </div>
+                    <div class="info-item">
+                        <svg class="info-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" aria-hidden="true">
+                            <path d="M10.47 2H14.47V6" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7.1366 9.33333L14.4699 2" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12.47 8.66667V12.6667C12.47 13.0203 12.3295 13.3594 12.0794 13.6095C11.8294 13.8595 11.4903 14 11.1366 14H3.8033C3.44968 14 3.11054 13.8595 2.86049 13.6095C2.61045 13.3594 2.46997 13.0203 2.46997 12.6667V5.33333C2.46997 4.97971 2.61045 4.64057 2.86049 4.39052C3.11054 4.14048 3.44968 4 3.8033 4H7.8033" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <a href="https://icpc.global" target="_blank" rel="noopener noreferrer">icpc.global</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navigation" role="navigation" aria-label="Main Navigation">
+            <ul class="nav-content">
+                <li><a href="#progress" class="nav-item active">
+                    <svg class="nav-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" aria-hidden="true">
+                        <path d="M2.70215 8H2.70882" stroke="#020817" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2.70215 12H2.70882" stroke="#020817" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2.70215 4H2.70882" stroke="#020817" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.03552 8H14.7022" stroke="#020817" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.03552 12H14.7022" stroke="#020817" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.03552 4H14.7022" stroke="#020817" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Contest Progress
+                </a></li>
+                <li><a href="#volunteers" class="nav-item">
+                    <svg class="nav-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" aria-hidden="true">
+                        <path d="M11.3689 14V12.6667C11.3689 11.9594 11.0879 11.2811 10.5878 10.781C10.0877 10.281 9.40943 10 8.70219 10H4.70219C3.99495 10 3.31667 10.281 2.81657 10.781C2.31647 11.2811 2.03552 11.9594 2.03552 12.6667V14" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.70219 7.33333C8.17495 7.33333 9.36886 6.13943 9.36886 4.66667C9.36886 3.19391 8.17495 2 6.70219 2C5.22943 2 4.03552 3.19391 4.03552 4.66667C4.03552 6.13943 5.22943 7.33333 6.70219 7.33333Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15.3688 14V12.6667C15.3683 12.0758 15.1717 11.5019 14.8097 11.0349C14.4477 10.5679 13.9409 10.2344 13.3688 10.0867" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11.3688 2.08667C11.9424 2.23354 12.4508 2.56714 12.8139 3.03488C13.1769 3.50262 13.374 4.07789 13.374 4.67C13.374 5.26212 13.1769 5.83739 12.8139 6.30513C12.4508 6.77287 11.9424 7.10647 11.3688 7.25334" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Volunteers
+                </a></li>
+                <li><a href="#help" class="nav-item">
+                    <svg class="nav-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" aria-hidden="true">
+                        <path d="M8.70219 14.6666C12.3841 14.6666 15.3689 11.6819 15.3689 7.99998C15.3689 4.31808 12.3841 1.33331 8.70219 1.33331C5.02029 1.33331 2.03552 4.31808 2.03552 7.99998C2.03552 11.6819 5.02029 14.6666 8.70219 14.6666Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.76221 6.00001C6.91894 5.55446 7.22831 5.17875 7.63551 4.93944C8.04271 4.70012 8.52147 4.61264 8.98699 4.69249C9.45251 4.77234 9.87475 5.01436 10.1789 5.3757C10.4831 5.73703 10.6496 6.19436 10.6489 6.66668C10.6489 8.00001 8.64887 8.66668 8.64887 8.66668" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.70215 11.3333H8.70882" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    How to Help
+                </a></li>
+                <li><a href="#contact" class="nav-item">
+                    <svg class="nav-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" aria-hidden="true">
+                        <path d="M11.3688 1.33331V2.66665" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5.36877 14.6667V13.3333C5.36877 12.9797 5.50925 12.6406 5.7593 12.3905C6.00935 12.1405 6.34849 12 6.70211 12H10.7021C11.0557 12 11.3949 12.1405 11.6449 12.3905C11.895 12.6406 12.0354 12.9797 12.0354 13.3333V14.6667" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6.03552 1.33331V2.66665" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.70215 9.33331C9.80672 9.33331 10.7021 8.43788 10.7021 7.33331C10.7021 6.22874 9.80672 5.33331 8.70215 5.33331C7.59758 5.33331 6.70215 6.22874 6.70215 7.33331C6.70215 8.43788 7.59758 9.33331 8.70215 9.33331Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13.3688 2.66669H4.03548C3.2991 2.66669 2.70215 3.26364 2.70215 4.00002V13.3334C2.70215 14.0697 3.2991 14.6667 4.03548 14.6667H13.3688C14.1052 14.6667 14.7021 14.0697 14.7021 13.3334V4.00002C14.7021 3.26364 14.1052 2.66669 13.3688 2.66669Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Contact
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content" tabindex="-1">
+            <!-- About Section -->
+            <section class="about-section">
+                <div class="section-header">
+                    <svg class="section-icon" width="25" height="25" viewBox="0 0 25 25" fill="none" aria-hidden="true">
+                        <path d="M21.1792 3.41785H3.1792C2.62691 3.41785 2.1792 3.86556 2.1792 4.41785V7.41785C2.1792 7.97013 2.62691 8.41785 3.1792 8.41785H21.1792C21.7315 8.41785 22.1792 7.97013 22.1792 7.41785V4.41785C22.1792 3.86556 21.7315 3.41785 21.1792 3.41785Z" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4.1792 8.41785V19.4178C4.1792 19.9483 4.38991 20.457 4.76499 20.8321C5.14006 21.2071 5.64877 21.4178 6.1792 21.4178H18.1792C18.7096 21.4178 19.2183 21.2071 19.5934 20.8321C19.9685 20.457 20.1792 19.9483 20.1792 19.4178V8.41785" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10.1792 12.4178H14.1792" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h2>About the Project</h2>
+                </div>
+                <p class="about-description">
+                    The ICPC Problem Archive project aims to collect and preserve all problems from every ICPC contest throughout its nearly 50-year history. This comprehensive archive includes problem statements, test data, solutions, and complete problem packages from contests at all levels - from local contests to the World Finals.
+                </p>
+                <p class="about-mission">
+                    Our mission is to create a complete historical record of competitive programming problems that have shaped the field, making them accessible for educational purposes, research, and historical preservation.
+                </p>
+            </section>
+
+            <!-- Contest Progress Section -->
+            <section id="progress" class="progress-section">
+                <h2>Contest Archive Progress</h2>
+                <p class="section-description">Track the collection status for all ICPC contests organized in their hierarchical structure.</p>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="missing-filter">Filter by missing:</label>
+                        <select id="missing-filter" class="filter-select">
+                            <option value="all">Show all</option>
+                            <option value="statements">Missing statements</option>
+                            <option value="data">Missing test data</option>
+                            <option value="solutions">Missing solutions</option>
+                            <option value="packages">Missing packages</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="region-filter">Region:</label>
+                        <select id="region-filter" class="filter-select">
+                            <option value="all">All</option>
+                            <option value="international">International</option>
+                            <option value="europe">Europe</option>
+                            <option value="north-america">North America</option>
+                            <option value="asia">Asia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="contest-tree" role="tree">
+                    <!-- International Contests -->
+                    <div class="contest-category" role="group">
+                        <div class="category-header" onclick="toggleContestList(this)" role="button" tabindex="0">
+                            <div class="category-info">
+                                <h3>International</h3>
+                                <span class="contest-count">48 contests • 437 problems</span>
+                            </div>
+                            <div class="progress-badges">
+                                <span class="badge badge-complete">Stmt 100%</span>
+                                <span class="badge badge-partial">Data 40%</span>
+                                <span class="badge badge-partial">Sol 40%</span>
+                                <span class="badge badge-incomplete">Pkg 29%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contest-list" id="international-list">
+                            <div class="contest-year">2024</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">ICPC World Finals 2024</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 45%</span>
+                                    <span class="badge badge-partial">Sol 45%</span>
+                                    <span class="badge badge-incomplete">Pkg 27%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2023</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">ICPC World Finals 2023</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-complete">Data 100%</span>
+                                    <span class="badge badge-complete">Sol 100%</span>
+                                    <span class="badge badge-complete">Pkg 100%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2022</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">ICPC World Finals 2022</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 82%</span>
+                                    <span class="badge badge-partial">Sol 82%</span>
+                                    <span class="badge badge-incomplete">Pkg 64%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2021</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">ICPC World Finals 2021</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 73%</span>
+                                    <span class="badge badge-partial">Sol 73%</span>
+                                    <span class="badge badge-incomplete">Pkg 55%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2020</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">ICPC World Finals 2020</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 64%</span>
+                                    <span class="badge badge-partial">Sol 64%</span>
+                                    <span class="badge badge-incomplete">Pkg 45%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Europe Contests -->
+                    <div class="contest-category" role="group">
+                        <div class="category-header" onclick="toggleContestList(this)" role="button" tabindex="0">
+                            <div class="category-info">
+                                <h3>Europe</h3>
+                                <span class="contest-count">100 contests • 934+ problems</span>
+                            </div>
+                            <div class="progress-badges">
+                                <span class="badge badge-partial">Stmt 52%</span>
+                                <span class="badge badge-partial">Data 32%</span>
+                                <span class="badge badge-partial">Sol 29%</span>
+                                <span class="badge badge-incomplete">Pkg 18%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contest-list" id="europe-list">
+                            <div class="contest-year">2024</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">Northwestern European Regional Contest 2024</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 73%</span>
+                                    <span class="badge badge-partial">Sol 70%</span>
+                                    <span class="badge badge-incomplete">Pkg 43%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-entry">
+                                <span class="contest-name">Southwestern European Regional Contest 2024</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-partial">Stmt 47%</span>
+                                    <span class="badge badge-partial">Data 31%</span>
+                                    <span class="badge badge-partial">Sol 25%</span>
+                                    <span class="badge badge-incomplete">Pkg 16%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2023</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">Northwestern European Regional Contest 2023</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-complete">Data 100%</span>
+                                    <span class="badge badge-complete">Sol 100%</span>
+                                    <span class="badge badge-complete">Pkg 100%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-entry">
+                                <span class="contest-name">Southwestern European Regional Contest 2023</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 82%</span>
+                                    <span class="badge badge-partial">Sol 73%</span>
+                                    <span class="badge badge-incomplete">Pkg 55%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2022</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">Northwestern European Regional Contest 2022</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 64%</span>
+                                    <span class="badge badge-partial">Sol 55%</span>
+                                    <span class="badge badge-incomplete">Pkg 36%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- North America Contests -->
+                    <div class="contest-category" role="group">
+                        <div class="category-header" onclick="toggleContestList(this)" role="button" tabindex="0">
+                            <div class="category-info">
+                                <h3>North America</h3>
+                                <span class="contest-count">96 contests • 936 problems</span>
+                            </div>
+                            <div class="progress-badges">
+                                <span class="badge badge-partial">Stmt 41%</span>
+                                <span class="badge badge-partial">Data 40%</span>
+                                <span class="badge badge-partial">Sol 40%</span>
+                                <span class="badge badge-partial">Pkg 40%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contest-list" id="north-america-list">
+                            <div class="contest-year">2024</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">North America Championship 2024</span>
+                                <span class="contest-count">13 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-complete">Data 100%</span>
+                                    <span class="badge badge-complete">Sol 100%</span>
+                                    <span class="badge badge-complete">Pkg 100%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-entry">
+                                <span class="contest-name">East Central NA Regional Contest 2024</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-partial">Stmt 23%</span>
+                                    <span class="badge badge-partial">Data 21%</span>
+                                    <span class="badge badge-partial">Sol 21%</span>
+                                    <span class="badge badge-incomplete">Pkg 21%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2023</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">North America Championship 2023</span>
+                                <span class="contest-count">13 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-complete">Data 100%</span>
+                                    <span class="badge badge-complete">Sol 100%</span>
+                                    <span class="badge badge-complete">Pkg 100%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-entry">
+                                <span class="contest-name">East Central NA Regional Contest 2023</span>
+                                <span class="contest-count">11 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-partial">Data 82%</span>
+                                    <span class="badge badge-partial">Sol 73%</span>
+                                    <span class="badge badge-incomplete">Pkg 55%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-year">2022</div>
+                            <div class="contest-entry">
+                                <span class="contest-name">North America Championship 2022</span>
+                                <span class="contest-count">13 problems</span>
+                                <div class="progress-badges">
+                                    <span class="badge badge-complete">Stmt 100%</span>
+                                    <span class="badge badge-complete">Data 100%</span>
+                                    <span class="badge badge-complete">Sol 100%</span>
+                                    <span class="badge badge-complete">Pkg 100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Volunteers Section -->
+            <section id="volunteers" class="volunteers-section">
+                <div class="section-header">
+                    <svg class="section-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                        <path d="M18.67 20L26 4" stroke="#020817" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10.67 10.67L6.67 4.67" stroke="#020817" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 25.33L21.33 8" stroke="#020817" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h2>Project Volunteers</h2>
+                </div>
+                <p class="section-description">Meet the dedicated team working to preserve ICPC history.</p>
+                
+                <div class="volunteers-grid">
+                    <div class="volunteer-card">
+                        <div class="volunteer-avatar">DJP</div>
+                        <div class="volunteer-info">
+                            <h3>Dr. Jane Placeholder</h3>
+                            <span class="volunteer-role">Project Lead</span>
+                            <p class="volunteer-affiliation">University of Technology</p>
+                            <p class="contributions-label">Contributions:</p>
+                            <div class="contribution-tags">
+                                <span class="tag">Project coordination</span>
+                                <span class="tag">Historical research</span>
+                                <span class="tag">Data validation</span>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link">LinkedIn</a>
+                                <a href="#" class="social-link">GitHub</a>
+                                <a href="#" class="social-link">Email</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="volunteer-card">
+                        <div class="volunteer-avatar">AF</div>
+                        <div class="volunteer-info">
+                            <h3>Alex Fakename</h3>
+                            <span class="volunteer-role">Technical Lead</span>
+                            <p class="volunteer-affiliation">Tech Corporation</p>
+                            <p class="contributions-label">Contributions:</p>
+                            <div class="contribution-tags">
+                                <span class="tag">Repository management</span>
+                                <span class="tag">Data processing</span>
+                                <span class="tag">Tool development</span>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link">LinkedIn</a>
+                                <a href="#" class="social-link">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="volunteer-card">
+                        <div class="volunteer-avatar">ME</div>
+                        <div class="volunteer-info">
+                            <h3>Maria Example</h3>
+                            <span class="volunteer-role">Regional Coordinator</span>
+                            <p class="volunteer-affiliation">European University</p>
+                            <p class="contributions-label">Contributions:</p>
+                            <div class="contribution-tags">
+                                <span class="tag">European contests</span>
+                                <span class="tag">Problem collection</span>
+                                <span class="tag">Community outreach</span>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link">LinkedIn</a>
+                                <a href="#" class="social-link">GitHub</a>
+                                <a href="#" class="social-link">Email</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="volunteer-card">
+                        <div class="volunteer-avatar">DT</div>
+                        <div class="volunteer-info">
+                            <h3>David Testuser</h3>
+                            <span class="volunteer-role">Archive Specialist</span>
+                            <p class="volunteer-affiliation">Asian Institute of Technology</p>
+                            <p class="contributions-label">Contributions:</p>
+                            <div class="contribution-tags">
+                                <span class="tag">Asian contests</span>
+                                <span class="tag">Data organization</span>
+                                <span class="tag">Quality assurance</span>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link">LinkedIn</a>
+                                <a href="#" class="social-link">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="volunteer-card">
+                        <div class="volunteer-avatar">SD</div>
+                        <div class="volunteer-info">
+                            <h3>Sarah Demodata</h3>
+                            <span class="volunteer-role">Community Manager</span>
+                            <p class="volunteer-affiliation">Community Organization</p>
+                            <p class="contributions-label">Contributions:</p>
+                            <div class="contribution-tags">
+                                <span class="tag">Volunteer coordination</span>
+                                <span class="tag">Documentation</span>
+                                <span class="tag">External relations</span>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link">LinkedIn</a>
+                                <a href="#" class="social-link">Email</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Help Section -->
+            <section id="help" class="help-section">
+                <h2>How You Can Help</h2>
+                <p class="section-description">We need your help to complete this important archival project.</p>
+                
+                <div class="help-cards">
+                    <div class="help-card">
+                        <div class="help-card-header">
+                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M10.67 13.33L14.67 2" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 4L9.33 1.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3>Problem Statements</h3>
+                        </div>
+                        <p>Help us collect missing problem statements from ICPC contests</p>
+                        <div class="help-requirements">
+                            <h4>What we need:</h4>
+                            <ul>
+                                <li>PDF files of official problem statements</li>
+                                <li>Scanned copies of historical problems</li>
+                            </ul>
+                        </div>
+                        <button class="help-button">Submit Problem Statements</button>
+                    </div>
+                    
+                    <div class="help-card">
+                        <div class="help-card-header">
+                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M12 4L2 1.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 11.33L2 3.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 8L2 8" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3>Test Data</h3>
+                        </div>
+                        <p>Provide test cases and input/output data for problems</p>
+                        <div class="help-requirements">
+                            <h4>What we need:</h4>
+                            <ul>
+                                <li>Official test data files (input/output)</li>
+                                <li>Additional test cases you've created</li>
+                                <li>Test data validators</li>
+                            </ul>
+                        </div>
+                        <button class="help-button">Submit Test Data</button>
+                    </div>
+                    
+                    <div class="help-card">
+                        <div class="help-card-header">
+                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M4 8L10.67 4" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 8L1.33 4" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3>Solutions</h3>
+                        </div>
+                        <p>Share solution code and editorial explanations</p>
+                        <div class="help-requirements">
+                            <h4>What we need:</h4>
+                            <ul>
+                                <li>Official solutions from the contest judges</li>
+                                <li>Editorial explanations and approaches</li>
+                                <li>Alternative solution implementations</li>
+                                <li>Solution analysis and complexity discussions</li>
+                            </ul>
+                        </div>
+                        <button class="help-button">Submit Solutions</button>
+                    </div>
+                    
+                    <div class="help-card">
+                        <div class="help-card-header">
+                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M12.67 12.67L2 1.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M11.6 3.33L2.2 4.67" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 2.85L5 3.43" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3>Problem Packages</h3>
+                        </div>
+                        <p>Complete problem packages in standard formats</p>
+                        <div class="help-requirements">
+                            <h4>What we need:</h4>
+                            <ul>
+                                <li>Kattis problem packages (.kpp format)</li>
+                                <li>Complete packages with all components</li>
+                                <li>Validated and tested problem sets</li>
+                            </ul>
+                        </div>
+                        <button class="help-button">Submit Packages</button>
+                    </div>
+                    
+                    <div class="help-card">
+                        <div class="help-card-header">
+                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                                <path d="M12.67 12.67L2 2" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <h3>Create Packages</h3>
+                        </div>
+                        <p>Help create problem packages when we have statements, data, and solutions</p>
+                        <div class="help-requirements">
+                            <h4>What we need:</h4>
+                            <ul>
+                                <li>Package creation skills using .kpp format</li>
+                                <li>Ability to combine statements, test data, and solutions</li>
+                                <li>Knowledge of problem package validation</li>
+                                <li>Experience with contest management systems</li>
+                            </ul>
+                        </div>
+                        <button class="help-button">Volunteer to Create Packages</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Contest list toggle functionality
+        function toggleContestList(headerElement) {
+            const category = headerElement.closest('.contest-category');
+            const contestList = category.querySelector('.contest-list');
+            const isExpanded = contestList.classList.contains('expanded');
+            
+            // Toggle the expanded class
+            if (isExpanded) {
+                contestList.classList.remove('expanded');
+                headerElement.setAttribute('aria-expanded', 'false');
+            } else {
+                contestList.classList.add('expanded');
+                headerElement.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // Keyboard navigation for category headers
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryHeaders = document.querySelectorAll('.category-header');
+            
+            categoryHeaders.forEach(header => {
+                header.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        toggleContestList(this);
+                    }
+                });
+            });
+
+            // Initialize with first category expanded
+            const firstCategory = document.querySelector('.contest-category');
+            if (firstCategory) {
+                const firstHeader = firstCategory.querySelector('.category-header');
+                const firstList = firstCategory.querySelector('.contest-list');
+                firstList.classList.add('expanded');
+                firstHeader.setAttribute('aria-expanded', 'true');
+            }
+        });
+
+        // Filter functionality (placeholder for future implementation)
+        document.getElementById('missing-filter').addEventListener('change', function() {
+            // TODO: Implement filtering logic
+            console.log('Filter changed to:', this.value);
+        });
+
+        document.getElementById('region-filter').addEventListener('change', function() {
+            // TODO: Implement filtering logic
+            console.log('Region changed to:', this.value);
+        });
+    </script>
+</body>
+</html> 
