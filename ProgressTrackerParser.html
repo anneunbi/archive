@@ -88,7 +88,85 @@
       })
       .catch(error => {
         errorContainer.textContent = `Error loading ContestList.tsv: ${error.message}`;
-      });
+
+      function renderProgress() {
+        progressContainer.innerHTML = '';
+        const missingFilter = filterMissing.value === 'missing';
+        const regionFilter = filterRegion.value;
+
+        const categoryMap = {};
+        contestStatus.forEach(contest => {
+          if (regionFilter !== 'all' && contest.region !== regionFilter) return;
+          if (missingFilter && (contest.stmt && contest.data && contest.sol && contest.pkg)) return;
+
+          if (!categoryMap[contest.region]) categoryMap[contest.region] = {};
+          if (!categoryMap[contest.region][contest.shortName]) {
+            categoryMap[contest.region][contest.shortName] = {
+              fullName: contestList[contest.shortName]?.fullName || contest.shortName,
+              contests: []
+            };
+          }
+          categoryMap[contest.region][contest.shortName].contests.push(contest);
+        });
+
+        const regions = Object.keys(categoryMap).sort();
+        regions.forEach(region => {
+          const categories = categoryMap[region];
+          if (!categories) return;
+
+          const regionTitle = document.createElement('div');
+          regionTitle.className = 'category-name';
+          const totalContests = Object.values(categories).reduce((sum, cat) => sum + cat.contests.length, 0);
+          const totalProblems = Object.values(categories).reduce((sum, cat) => sum + cat.contests.reduce((pSum, c) => pSum + c.problems, 0), 0);
+          regionTitle.textContent = `${region} ${totalContests} contest${totalContests !== 1 ? 's' : ''} + ${totalProblems} problems`;
+          progressContainer.appendChild(regionTitle);
+
+          Object.entries(categories).forEach(([shortName, { fullName, contests }]) => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'sub-category';
+
+            const catName = document.createElement('div');
+            catName.className = 'sub-category-name';
+            catName.textContent = `> ${fullName} ${contests.length} contest${contests.length > 1 ? 's' : ''} • ${contests.reduce((sum, c) => sum + c.problems, 0)} problems`;
+            categoryDiv.appendChild(catName);
+
+            contests.sort((a, b) => b.year - a.year).forEach(contest => {
+              const subCatDiv = document.createElement('div');
+              subCatDiv.className = 'sub-category';
+              subCatDiv.style.marginLeft = '20px';
+
+              const subCatName = document.createElement('span');
+              subCatName.className = 'sub-category-name';
+              subCatName.textContent = `${contest.year}`;
+              subCatDiv.appendChild(subCatName);
+
+              const progressDiv = document.createElement('div');
+              progressDiv.className = 'progress';
+
+              const createBadge = (label, value) => {
+                const div = document.createElement('div');
+                div.className = `btn ${label.toLowerCase()} ${!value ? 'inactive' : ''}`;
+                div.textContent = `${label} ${value ? '100%' : '0%'}`;
+                return div;
+              };
+
+              progressDiv.appendChild(createBadge('Stmt', contest.stmt));
+              progressDiv.appendChild(createBadge('Data', contest.data));
+              progressDiv.appendChild(createBadge('Sol', contest.sol));
+              progressDiv.appendChild(createBadge('Pkg', contest.pkg));
+
+              subCatDiv.appendChild(progressDiv);
+              categoryDiv.appendChild(subCatDiv);
+            });
+
+            progressContainer.appendChild(categoryDiv);
+          });
+        });
+      }
+
+      filterMissing.addEventListener('change', renderProgress);
+      filterRegion.addEventListener('change', renderProgress);
+    });
 
     </script>
 </body>
