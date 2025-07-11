@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contest Archive Progress</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f8fa; }
+    .container { max-width: 800px; }
+    .header { color: #000000; font-size: 24px; margin-bottom: 10px; }
+    .subheader { color: #657786; font-size: 14px; margin-bottom: 20px; }
+    .filter { margin-bottom: 20px; }
+    .filter select { padding: 5px; margin-right: 10px; border: 1px solid #ccd6dd; border-radius: 4px; }
+    
+    .category { margin-bottom: 15px; }
+    .category-name { color: #000000; font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+    .sub-category { margin-left: 20px; margin-bottom: 5px; }
+    .sub-category-name { color: #14171a; font-size: 16px; font-weight: bold; cursor: pointer; }
+    .dropdown { display: none; margin-left: 20px; }
+    .dropdown.active { display: block; }
+    
+    .progress { display: flex; gap: 10px; align-items: center; }
+    .progress-item { display: flex; align-items: center; gap: 5px; }
+    .btn { padding: 5px 10px; border-radius: 12px; color: white; font-size: 12px; }
+    .stmt { background-color: #1da1f2; }
+    .data { background-color: #ffd700; color: #000; }
+    .sol { background-color: #ff4500; }
+    .pkg { background-color: #32cd32; }
+    .inactive { background-color: #e1e8ed; color: #657786; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Contest Archive Progress</div>
+    <div class="subheader">Track the collection status for all ICPC contests organized in their hierarchical structure.</div>
+   
+    <!-- Filters -->
+    <div class="filter">
+      <!-- Filter by missing status -->
+      <span>Filter by missing:</span>
+      <select id="filterMissing">
+        <option value="all">Show all</option>
+        <option value="missing">Show missing</option>
+      </select>
+      <!-- Filter by region -->
+      <span>Region:</span>
+      <select id="filterRegion">
+        <option value="all">All</option>
+        <option value="International">International</option>
+        <option value="Europe">Europe</option>
+        <option value="NorthAmerica">North America</option>
+      </select>
+    </div>
+    <div id="progressContainer"></div>
+    <div id="errorContainer" class="error"></div>
+  </div>
+
+  <script>
+    let contestList = {};
+    let contestStatus = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const errorContainer = document.getElementById('errorContainer');
+      const filterMissing = document.getElementById('filterMissing');
+      const filterRegion = document.getElementById('filterRegion');
+      const progressContainer = document.getElementById('progressContainer');
+
+      console.log('DOM Loaded - errorContainer:', errorContainer, 'progressContainer:', progressContainer);
+
+      if (!errorContainer || !progressContainer) {
+        console.error('DOM elements not found:', { errorContainer, progressContainer });
+        return;
+      }
+
+      // Fetch ContestList.tsv
+      fetch('ContestList.tsv')
+        // Throw error if file not found
+        .then(response => {
+          if (!response.ok) throw new Error(`ContestList.tsv not found. Status: ${response.status}`);
+          return response.text();
+        })
+        // Parse the contents
+        .then(text => {
+          console.log('Raw ContestList.tsv content:', text);
+          // Remove leading/trailing new lines, separate lines, split lines into fields based on tabs
+          const rows = text.trim().split('\n').map(row => row.split('\t'));
+          
+          // Extract headers and data
+          const headers = rows[0];
+          // Skip first row, loop over all rows
+          const data = rows.slice(1).map(row => {
+            // Create object for each row, with headers as keys and row values as values
+            const obj = {};
+            headers.forEach((header, index) => obj[header] = row[index]);
+            return obj;
+          });
+
+          // Combine the objects
+          contestList = data.reduce((combined, item) => {
+            combined[item['short-name']] = { fullName: item['full-name'], region: item['region-name'] };
+            return combined;
+          }, {});
+          console.log('Parsed Contest List:', contestList);
+          loadStatusFile();
+        })
+        .catch(error => {
+          console.error('Error loading ContestList.tsv:', error);
+          errorContainer.textContent = `Error loading ContestList.tsv: ${error.message}`;
+        });
+
+      // Fetch ContestStatus.tsv
+      function loadStatusFile() {
+        fetch('ContestStatus.tsv')
+           // Throw error if file not found
+          .then(response => {
+            if (!response.ok) throw new Error(`ContestStatus.tsv not found. Status: ${response.status}`);
+            return response.text();
+          })
+          // Parse the contents
+          .then(text => {
+            console.log('Raw ContestStatus.tsv content:', text);
+            // Remove leading/trailing new lines, separate lines, split lines into fields based on tabs
+            const rows = text.trim().split('\n').map(row => row.split('\t'));
+            // Extract headers and data
+            const headers = rows[0];
+            // Skip first row, loop over all rows
+            contestStatus = rows.slice(1).map(row => {
+              if (row.length < 7) {
+                console.warn('Skipping malformed row:', row);
+                return null;
+              }
+              // Create object for each row, with headers as keys and row values as values
+              const obj = {};
+              headers.forEach((header, index) => obj[header] = row[index]);
+              obj.shortName = obj['short-name'];
+              obj.year = obj['year'];
+              obj.problems = parseInt(obj['count']) || 0; // Handle ? with 0
+              obj.stmt = obj['statements'] === 'TRUE';
+              obj.data = obj['data'] === 'TRUE';
+              obj.sol = obj['solutions'] === 'TRUE';
+              obj.pkg = obj['packages'] === 'TRUE';
+              obj.region = contestList[obj['short-name']]?.region || 'Unknown';
+              return obj;
+            })
+
+            console.log('Parsed Contest Status:', contestStatus);
+            renderProgress();
+          })
+          .catch(error => {
+            console.error('Error loading ContestStatus.tsv:', error);
+            errorContainer.textContent = `Error loading ContestStatus.tsv: ${error.message}`;
+          });
+      }
+
+      function renderProgress() {
+        progressContainer.innerHTML = '';
+        const missingFilter = filterMissing.value === 'missing';
+        const regionFilter = filterRegion.value;
+
+        if (regionFilter === 'all') {
+          const regions = [...new Set(contestStatus.map(c => c.region))].sort();
+          regions.forEach(region => {
+            renderRegion(region);
+          });
+        } else {
+          renderRegion(regionFilter);
+        }
+
+        function renderRegion(region) {
+          const filteredContests = contestStatus.filter(c => c.region === region);
+          if (missingFilter && filteredContests.every(c => c.stmt && c.data && c.sol && c.pkg)) return;
+
+          const regionTitle = document.createElement('div');
+          regionTitle.className = 'category-name';
+          const totalContests = filteredContests.length;
+          const totalProblems = filteredContests.reduce((sum, c) => sum + c.problems, 0);
+          regionTitle.textContent = `${region} ${totalContests} contest${totalContests !== 1 ? 's' : ''} + ${totalProblems} problems`;
+          progressContainer.appendChild(regionTitle);
+
+          const contestGroups = {};
+          filteredContests.forEach(contest => {
+            if (missingFilter && (contest.stmt && contest.data && contest.sol && contest.pkg)) return;
+            if (!contestGroups[contest.shortName]) {
+              contestGroups[contest.shortName] = {
+                fullName: contestList[contest.shortName]?.fullName || contest.shortName,
+                years: []
+              };
+            }
+            contestGroups[contest.shortName].years.push(contest);
+          });
+
+          Object.entries(contestGroups).forEach(([shortName, { fullName, years }]) => {
+            const categoryDiv = document.createElement('div');
+            categoryDiv.className = 'sub-category';
+
+            const catName = document.createElement('div');
+            catName.className = 'sub-category-name';
+            catName.textContent = `> ${fullName}`;
+            catName.addEventListener('click', () => {
+              const dropdown = categoryDiv.querySelector('.dropdown');
+              dropdown.classList.toggle('active');
+            });
+            categoryDiv.appendChild(catName);
+
+            const dropdown = document.createElement('div');
+            dropdown.className = 'dropdown';
+            years.sort((a, b) => b.year - a.year).forEach(contest => {
+              const subCatDiv = document.createElement('div');
+              subCatDiv.className = 'sub-category';
+              subCatDiv.style.marginLeft = '20px';
+
+              const subCatName = document.createElement('span');
+              subCatName.className = 'sub-category-name';
+              subCatName.textContent = `${contest.year}`;
+              subCatDiv.appendChild(subCatName);
+
+              const progressDiv = document.createElement('div');
+              progressDiv.className = 'progress';
+
+              const createBadge = (label, value) => {
+                const div = document.createElement('div');
+                div.className = `btn ${label.toLowerCase()} ${!value ? 'inactive' : ''}`;
+                div.textContent = `${label} ${value ? '100%' : '0%'}`;
+                return div;
+              };
+
+              progressDiv.appendChild(createBadge('Stmt', contest.stmt));
+              progressDiv.appendChild(createBadge('Data', contest.data));
+              progressDiv.appendChild(createBadge('Sol', contest.sol));
+              progressDiv.appendChild(createBadge('Pkg', contest.pkg));
+
+              subCatDiv.appendChild(progressDiv);
+              dropdown.appendChild(subCatDiv);
+            });
+            categoryDiv.appendChild(dropdown);
+
+            progressContainer.appendChild(categoryDiv);
+          });
+        }
+      }
+
+      filterMissing.addEventListener('change', renderProgress);
+      filterRegion.addEventListener('change', renderProgress);
+    });
+  </script>
+</body>
+</html>
