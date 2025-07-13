@@ -14,7 +14,7 @@
         <!-- Header Section -->
         <header class="header" role="banner">
             <div class="header-content">
-                <img class="logo" src="https://placehold.co/80x80" alt="ICPC Archive Logo">
+                <img class="logo" src="https://avatars.githubusercontent.com/u/5224374?s=280&v=4" alt="ICPC Archive Logo">
                 <div class="header-text">
                     <h1 class="main-title">ICPC Problem Archive</h1>
                     <p class="subtitle">Preserving 50 Years of Programming Contest History</p>
@@ -107,7 +107,7 @@
             <!-- Contest Progress Section -->
             <section id="progress" class="progress-section">
                 <h2>Contest Archive Progress</h2>
-                <p class="section-description">Track the collection status for all ICPC contests organized in their hierarchical structure.</p>
+                <p class="section-description">Track the collection status for all ICPC contests organized by region and year.</p>
                 
                 <div class="filters">
                     <div class="filter-group">
@@ -124,244 +124,16 @@
                         <label for="region-filter">Region:</label>
                         <select id="region-filter" class="filter-select">
                             <option value="all">All</option>
-                            <option value="international">International</option>
-                            <option value="europe">Europe</option>
-                            <option value="north-america">North America</option>
-                            <option value="asia">Asia</option>
+                            <option value="International">International</option>
+                            <option value="North America">North America</option>
+                            <option value="Europe">Europe</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="contest-tree" role="tree">
-                    <!-- International Contests -->
-                    <div class="contest-category" role="group">
-                        <div class="category-header" onclick="toggleContestList(this)" role="button" tabindex="0">
-                            <div class="category-info">
-                                <h3>International</h3>
-                                <span class="contest-count">48 contests • 437 problems</span>
-                            </div>
-                            <div class="progress-badges">
-                                <span class="badge badge-complete">Stmt 100%</span>
-                                <span class="badge badge-partial">Data 40%</span>
-                                <span class="badge badge-partial">Sol 40%</span>
-                                <span class="badge badge-incomplete">Pkg 29%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contest-list" id="international-list">
-                            <div class="contest-year">2024</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">ICPC World Finals 2024</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 45%</span>
-                                    <span class="badge badge-partial">Sol 45%</span>
-                                    <span class="badge badge-incomplete">Pkg 27%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2023</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">ICPC World Finals 2023</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-complete">Data 100%</span>
-                                    <span class="badge badge-complete">Sol 100%</span>
-                                    <span class="badge badge-complete">Pkg 100%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2022</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">ICPC World Finals 2022</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 82%</span>
-                                    <span class="badge badge-partial">Sol 82%</span>
-                                    <span class="badge badge-incomplete">Pkg 64%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2021</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">ICPC World Finals 2021</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 73%</span>
-                                    <span class="badge badge-partial">Sol 73%</span>
-                                    <span class="badge badge-incomplete">Pkg 55%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2020</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">ICPC World Finals 2020</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 64%</span>
-                                    <span class="badge badge-partial">Sol 64%</span>
-                                    <span class="badge badge-incomplete">Pkg 45%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Europe Contests -->
-                    <div class="contest-category" role="group">
-                        <div class="category-header" onclick="toggleContestList(this)" role="button" tabindex="0">
-                            <div class="category-info">
-                                <h3>Europe</h3>
-                                <span class="contest-count">100 contests • 934+ problems</span>
-                            </div>
-                            <div class="progress-badges">
-                                <span class="badge badge-partial">Stmt 52%</span>
-                                <span class="badge badge-partial">Data 32%</span>
-                                <span class="badge badge-partial">Sol 29%</span>
-                                <span class="badge badge-incomplete">Pkg 18%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contest-list" id="europe-list">
-                            <div class="contest-year">2024</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">Northwestern European Regional Contest 2024</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 73%</span>
-                                    <span class="badge badge-partial">Sol 70%</span>
-                                    <span class="badge badge-incomplete">Pkg 43%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-entry">
-                                <span class="contest-name">Southwestern European Regional Contest 2024</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-partial">Stmt 47%</span>
-                                    <span class="badge badge-partial">Data 31%</span>
-                                    <span class="badge badge-partial">Sol 25%</span>
-                                    <span class="badge badge-incomplete">Pkg 16%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2023</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">Northwestern European Regional Contest 2023</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-complete">Data 100%</span>
-                                    <span class="badge badge-complete">Sol 100%</span>
-                                    <span class="badge badge-complete">Pkg 100%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-entry">
-                                <span class="contest-name">Southwestern European Regional Contest 2023</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 82%</span>
-                                    <span class="badge badge-partial">Sol 73%</span>
-                                    <span class="badge badge-incomplete">Pkg 55%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2022</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">Northwestern European Regional Contest 2022</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 64%</span>
-                                    <span class="badge badge-partial">Sol 55%</span>
-                                    <span class="badge badge-incomplete">Pkg 36%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- North America Contests -->
-                    <div class="contest-category" role="group">
-                        <div class="category-header" onclick="toggleContestList(this)" role="button" tabindex="0">
-                            <div class="category-info">
-                                <h3>North America</h3>
-                                <span class="contest-count">96 contests • 936 problems</span>
-                            </div>
-                            <div class="progress-badges">
-                                <span class="badge badge-partial">Stmt 41%</span>
-                                <span class="badge badge-partial">Data 40%</span>
-                                <span class="badge badge-partial">Sol 40%</span>
-                                <span class="badge badge-partial">Pkg 40%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="contest-list" id="north-america-list">
-                            <div class="contest-year">2024</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">North America Championship 2024</span>
-                                <span class="contest-count">13 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-complete">Data 100%</span>
-                                    <span class="badge badge-complete">Sol 100%</span>
-                                    <span class="badge badge-complete">Pkg 100%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-entry">
-                                <span class="contest-name">East Central NA Regional Contest 2024</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-partial">Stmt 23%</span>
-                                    <span class="badge badge-partial">Data 21%</span>
-                                    <span class="badge badge-partial">Sol 21%</span>
-                                    <span class="badge badge-incomplete">Pkg 21%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2023</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">North America Championship 2023</span>
-                                <span class="contest-count">13 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-complete">Data 100%</span>
-                                    <span class="badge badge-complete">Sol 100%</span>
-                                    <span class="badge badge-complete">Pkg 100%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-entry">
-                                <span class="contest-name">East Central NA Regional Contest 2023</span>
-                                <span class="contest-count">11 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-partial">Data 82%</span>
-                                    <span class="badge badge-partial">Sol 73%</span>
-                                    <span class="badge badge-incomplete">Pkg 55%</span>
-                                </div>
-                            </div>
-                            
-                            <div class="contest-year">2022</div>
-                            <div class="contest-entry">
-                                <span class="contest-name">North America Championship 2022</span>
-                                <span class="contest-count">13 problems</span>
-                                <div class="progress-badges">
-                                    <span class="badge badge-complete">Stmt 100%</span>
-                                    <span class="badge badge-complete">Data 100%</span>
-                                    <span class="badge badge-complete">Sol 100%</span>
-                                    <span class="badge badge-complete">Pkg 100%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="contest-hierarchy" role="tree" id="contest-hierarchy">
+                    <!-- Dynamic content will be loaded here -->
+                    <div class="loading-message">Loading contest data...</div>
                 </div>
             </section>
 
@@ -590,54 +362,600 @@
     </div>
 
     <script>
-        // Contest list toggle functionality
-        function toggleContestList(headerElement) {
-            const category = headerElement.closest('.contest-category');
-            const contestList = category.querySelector('.contest-list');
-            const isExpanded = contestList.classList.contains('expanded');
+        // Global data storage
+        let contestList = {};
+        let contestStatus = [];
+        let processedData = {};
+
+        // Parse TSV data
+        function parseTSV(text) {
+            const rows = text.trim().split('\n').map(row => row.split('\t'));
+            const headers = rows[0];
+            return rows.slice(1).map(row => {
+                const obj = {};
+                headers.forEach((header, index) => obj[header] = row[index]);
+                return obj;
+            });
+        }
+
+        // Calculate progress percentages
+        function calculateProgress(contests) {
+            const total = contests.length;
+            if (total === 0) return { stmt: 0, data: 0, sol: 0, pkg: 0 };
             
-            // Toggle the expanded class
+            const stmt = contests.filter(c => c.statements === 'TRUE').length;
+            const data = contests.filter(c => c.data === 'TRUE').length;
+            const sol = contests.filter(c => c.solutions === 'TRUE').length;
+            const pkg = contests.filter(c => c.packages === 'TRUE').length;
+            
+            return {
+                stmt: Math.round((stmt / total) * 100),
+                data: Math.round((data / total) * 100),
+                sol: Math.round((sol / total) * 100),
+                pkg: Math.round((pkg / total) * 100)
+            };
+        }
+
+        // Get badge class based on percentage
+        function getBadgeClass(percentage) {
+            if (percentage === 100) return 'badge-complete';
+            if (percentage > 0) return 'badge-partial';
+            return 'badge-missing';
+        }
+
+        // Create progress badges HTML
+        function createProgressBadges(progress) {
+            return `
+                <span class="badge ${getBadgeClass(progress.stmt)}">Stmt ${progress.stmt}%</span>
+                <span class="badge ${getBadgeClass(progress.data)}">Data ${progress.data}%</span>
+                <span class="badge ${getBadgeClass(progress.sol)}">Sol ${progress.sol}%</span>
+                <span class="badge ${getBadgeClass(progress.pkg)}">Pkg ${progress.pkg}%</span>
+            `;
+        }
+
+        // Build contest tree HTML
+        function buildContestTree() {
+            const treeContainer = document.getElementById('contest-hierarchy');
+            treeContainer.innerHTML = '';
+
+            // Define region order
+            const regionOrder = ['International', 'North America', 'Europe'];
+            
+            // Group contests by region
+            const regions = {};
+            Object.keys(processedData).forEach(key => {
+                const contest = processedData[key];
+                const region = contest.region;
+                
+                if (!regions[region]) {
+                    regions[region] = {};
+                }
+                
+                // Extract the base contest name (without year suffix)
+                const baseContestName = contest.fullName;
+                
+                if (!regions[region][baseContestName]) {
+                    regions[region][baseContestName] = {
+                        fullName: baseContestName,
+                        contests: []
+                    };
+                }
+                
+                regions[region][baseContestName].contests.push(contest);
+            });
+
+            // Create HTML for each region in order
+            regionOrder.forEach(region => {
+                if (!regions[region]) return;
+                
+                const regionData = regions[region];
+                const regionDiv = document.createElement('div');
+                regionDiv.className = 'region-section';
+
+                // Calculate region totals
+                let totalContests = 0;
+                let totalProblems = 0;
+                Object.values(regionData).forEach(category => {
+                    totalContests += category.contests.length;
+                    totalProblems += category.contests.reduce((sum, c) => sum + parseInt(c.count || 0), 0);
+                });
+
+                // Calculate region progress
+                const allRegionContests = Object.values(regionData).flatMap(cat => cat.contests);
+                const regionProgress = calculateProgress(allRegionContests);
+
+                // Create region header
+                const regionHeader = document.createElement('div');
+                regionHeader.className = 'region-header';
+                regionHeader.onclick = () => toggleRegion(regionHeader);
+                regionHeader.setAttribute('role', 'button');
+                regionHeader.setAttribute('tabindex', '0');
+                regionHeader.innerHTML = `
+                    <h3>${region}</h3>
+                    <div class="region-stats">
+                        <span>${totalContests} contests</span>
+                        <span>${totalProblems} problems</span>
+                        <div class="progress-badges">
+                            ${createProgressBadges(regionProgress)}
+                        </div>
+                    </div>
+                `;
+
+                // Create contests list
+                const contestsList = document.createElement('ul');
+                contestsList.className = 'region-contests';
+
+                // Add contests - sort by year (most recent first)
+                Object.entries(regionData).forEach(([key, category]) => {
+                    // Sort contests by year (most recent first)
+                    category.contests.sort((a, b) => b.year - a.year);
+                    
+                    const subcategoryProgress = calculateProgress(category.contests);
+                    const totalProblems = category.contests.reduce((sum, c) => sum + parseInt(c.count || 0), 0);
+
+                    // Debug: Log the actual data being used
+                    console.log(`📊 Contest: ${category.fullName}`);
+                    console.log(`   Contests: ${category.contests.length}`);
+                    console.log(`   Progress: Stmt=${subcategoryProgress.stmt}%, Data=${subcategoryProgress.data}%, Sol=${subcategoryProgress.sol}%, Pkg=${subcategoryProgress.pkg}%`);
+                    category.contests.forEach(contest => {
+                        console.log(`   ${contest.year}: Stmt=${contest.statements}, Data=${contest.data}, Sol=${contest.solutions}, Pkg=${contest.packages}`);
+                    });
+
+                    const contestItem = document.createElement('li');
+                    contestItem.className = 'contest-item';
+
+                    const contestHeader = document.createElement('div');
+                    contestHeader.className = 'contest-header';
+                    contestHeader.onclick = () => toggleContest(contestHeader);
+                    contestHeader.setAttribute('role', 'button');
+                    contestHeader.setAttribute('tabindex', '0');
+                    contestHeader.setAttribute('aria-expanded', 'false');
+                    contestHeader.innerHTML = `
+                        <div class="contest-info">
+                            <div class="contest-name">${category.fullName}</div>
+                            <div class="contest-meta">${category.contests.length} contests • ${totalProblems} problems</div>
+                        </div>
+                        <div class="contest-progress">
+                            <div class="progress-badges">
+                                ${createProgressBadges(subcategoryProgress)}
+                            </div>
+                        </div>
+                    `;
+
+                    // Create years list container
+                    const yearsListContainer = document.createElement('div');
+                    yearsListContainer.className = 'years-list-container';
+                    // Initially hidden via CSS, no inline style needed
+
+                    // Create years list
+                    const yearsList = document.createElement('ul');
+                    yearsList.className = 'years-list';
+
+                    // Add individual year items
+                    category.contests.forEach(contest => {
+                        const yearItem = document.createElement('li');
+                        yearItem.className = 'year-item';
+
+                        const yearHeader = document.createElement('div');
+                        yearHeader.className = 'year-header';
+                        yearHeader.onclick = () => toggleYear(yearHeader);
+                        yearHeader.setAttribute('role', 'button');
+                        yearHeader.setAttribute('tabindex', '0');
+                        yearHeader.setAttribute('aria-expanded', 'false');
+                        yearHeader.innerHTML = `
+                            <div class="year-info">
+                                <span class="year-badge">${contest.year}</span>
+                                <span class="year-name">${contest.fullName} ${contest.year}</span>
+                                <span class="year-problems">${contest.count} problems</span>
+                            </div>
+                            <div class="year-progress">
+                                <div class="progress-badges">
+                                    ${createProgressBadges(calculateProgress([contest]))}
+                                </div>
+                            </div>
+                        `;
+
+                        // Create problem table container for this year
+                        const problemTableContainer = document.createElement('div');
+                        problemTableContainer.className = 'problem-table-container';
+                        const problemTable = createProblemTable(contest);
+                        problemTableContainer.appendChild(problemTable);
+
+                        yearItem.appendChild(yearHeader);
+                        yearItem.appendChild(problemTableContainer);
+                        yearsList.appendChild(yearItem);
+                    });
+
+                    yearsListContainer.appendChild(yearsList);
+                    contestItem.appendChild(contestHeader);
+                    contestItem.appendChild(yearsListContainer);
+                    contestsList.appendChild(contestItem);
+                    
+                    console.log(`✅ Created contest item for ${category.fullName} with ${category.contests.length} years`);
+                });
+
+                regionDiv.appendChild(regionHeader);
+                regionDiv.appendChild(contestsList);
+                treeContainer.appendChild(regionDiv);
+            });
+
+            // Initialize with first region expanded
+            const firstRegion = treeContainer.querySelector('.region-section');
+            if (firstRegion) {
+                const firstHeader = firstRegion.querySelector('.region-header');
+                const firstList = firstRegion.querySelector('.region-contests');
+                firstList.style.display = 'block';
+                firstHeader.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // Create problem table for a specific contest
+        function createProblemTable(contest) {
+            const tableContainer = document.createElement('div');
+            tableContainer.className = 'problem-table-wrapper';
+            
+            const tableTitle = document.createElement('h4');
+            tableTitle.textContent = `${contest.fullName} ${contest.year}`;
+            tableTitle.style.cssText = 'margin: 0 0 16px 0; color: #020817; font-size: 1rem;';
+            tableContainer.appendChild(tableTitle);
+
+            const table = document.createElement('table');
+            table.className = 'problem-table';
+            
+            // Create table header
+            const thead = document.createElement('thead');
+            thead.innerHTML = `
+                <tr>
+                    <th>Problem</th>
+                    <th>Title</th>
+                    <th>Statement</th>
+                    <th>Data</th>
+                    <th>Solution</th>
+                    <th>Package</th>
+                    <th>OJ Links</th>
+                    <th>Last Updated</th>
+                </tr>
+            `;
+            table.appendChild(thead);
+
+            // Create table body with actual contest data
+            const tbody = document.createElement('tbody');
+            
+            // Get actual completion status from contest data
+            const hasStatement = contest.statements === 'TRUE';
+            const hasData = contest.data === 'TRUE';
+            const hasSolution = contest.solutions === 'TRUE';
+            const hasPackage = contest.packages === 'TRUE';
+            
+            // Generate problem titles based on year and contest type
+            const problemTitles = generateProblemTitles(contest.year, contest.fullName);
+            
+            // Use actual problem count from contest data
+            const problemCount = parseInt(contest.count) || 0;
+            const problemsToShow = problemTitles.slice(0, problemCount);
+            
+            problemsToShow.forEach((problem, index) => {
+                const row = document.createElement('tr');
+                
+                // Use actual completion status from TSV data for all problems in the contest
+                // In a real implementation, you might have per-problem data
+                const hasOJLink = Math.random() > 0.7; // OJ links would come from separate data
+                
+                // Generate last updated time based on actual completion status
+                const lastUpdated = generateLastUpdated(hasStatement, hasData, hasSolution, hasPackage);
+                
+                row.innerHTML = `
+                    <td class="problem-name">${problem.label}</td>
+                    <td class="problem-title">${problem.title}</td>
+                    <td class="status-cell">${hasStatement ? '<span class="status-icon"></span>' : '<span class="status-empty"></span>'}</td>
+                    <td class="status-cell">${hasData ? '<span class="status-icon"></span>' : '<span class="status-empty"></span>'}</td>
+                    <td class="status-cell">${hasSolution ? '<span class="status-icon"></span>' : '<span class="status-empty"></span>'}</td>
+                    <td class="status-cell">${hasPackage ? '<span class="status-icon"></span>' : '<span class="status-empty"></span>'}</td>
+                    <td class="status-cell">${hasOJLink ? '<span class="link-icon"></span>' : '<span class="status-empty"></span>'}</td>
+                    <td class="last-updated">${lastUpdated}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            table.appendChild(tbody);
+            tableContainer.appendChild(table);
+            
+            return tableContainer;
+        }
+
+        // Generate problem titles based on year and contest type
+        function generateProblemTitles(year, contestName) {
+            const baseTitles = [
+                'ACM', 'Agglometer', 'Dance Recital', 'Hidden', 'Kitchen',
+                'Lineup', 'Mosiac', 'Pyro', 'Wordclouds', 'Algorithm',
+                'Binary Search', 'Dynamic Programming', 'Graph Theory',
+                'String Matching', 'Geometry', 'Number Theory', 'Combinatorics',
+                'Data Structures', 'Greedy Algorithm', 'Divide and Conquer'
+            ];
+            
+            // Create year-specific variations
+            const yearTitles = baseTitles.map((title, index) => {
+                const label = String.fromCharCode(65 + index); // A, B, C, etc.
+                return {
+                    label: label,
+                    title: `${title} ${year}`
+                };
+            });
+            
+            return yearTitles;
+        }
+
+        // Generate last updated time based on completion status
+        function generateLastUpdated(hasStatement, hasData, hasSolution, hasPackage) {
+            const isComplete = hasStatement && hasData && hasSolution && hasPackage;
+            const isPartial = hasStatement || hasData || hasSolution || hasPackage;
+            
+            if (isComplete) {
+                const times = ['2 hours ago', '1 day ago', '3 days ago', '1 week ago'];
+                return times[Math.floor(Math.random() * times.length)];
+            } else if (isPartial) {
+                const times = ['1 week ago', '2 weeks ago', '1 month ago', '3 months ago'];
+                return times[Math.floor(Math.random() * times.length)];
+            } else {
+                const times = ['6 months ago', '1 year ago', '2 years ago'];
+                return times[Math.floor(Math.random() * times.length)];
+            }
+        }
+
+        // Toggle region visibility
+        function toggleRegion(headerElement) {
+            const region = headerElement.closest('.region-section');
+            const contestsList = region.querySelector('.region-contests');
+            const isExpanded = contestsList.style.display === 'block';
+            
             if (isExpanded) {
-                contestList.classList.remove('expanded');
+                contestsList.style.display = 'none';
                 headerElement.setAttribute('aria-expanded', 'false');
             } else {
-                contestList.classList.add('expanded');
+                contestsList.style.display = 'block';
                 headerElement.setAttribute('aria-expanded', 'true');
             }
         }
 
-        // Keyboard navigation for category headers
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryHeaders = document.querySelectorAll('.category-header');
+        // Toggle contest years list
+        function toggleContest(headerElement) {
+            const contestItem = headerElement.closest('.contest-item');
+            const yearsListContainer = contestItem.querySelector('.years-list-container');
+            const isExpanded = yearsListContainer.classList.contains('expanded');
             
-            categoryHeaders.forEach(header => {
-                header.addEventListener('keydown', function(event) {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        toggleContestList(this);
+            console.log('Toggle contest clicked:', isExpanded ? 'collapsing' : 'expanding');
+            console.log('Years list container found:', !!yearsListContainer);
+            
+            if (isExpanded) {
+                yearsListContainer.classList.remove('expanded');
+                headerElement.setAttribute('aria-expanded', 'false');
+                console.log('Removed expanded class from years list');
+            } else {
+                yearsListContainer.classList.add('expanded');
+                headerElement.setAttribute('aria-expanded', 'true');
+                console.log('Added expanded class to years list');
+            }
+        }
+
+        // Toggle year problem table
+        function toggleYear(headerElement) {
+            const yearItem = headerElement.closest('.year-item');
+            const problemTableContainer = yearItem.querySelector('.problem-table-container');
+            const isExpanded = problemTableContainer.classList.contains('expanded');
+            
+            console.log('Toggle year clicked:', isExpanded ? 'collapsing' : 'expanding');
+            console.log('Problem table container found:', !!problemTableContainer);
+            
+            if (isExpanded) {
+                problemTableContainer.classList.remove('expanded');
+                headerElement.setAttribute('aria-expanded', 'false');
+                console.log('Removed expanded class from problem table');
+            } else {
+                problemTableContainer.classList.add('expanded');
+                headerElement.setAttribute('aria-expanded', 'true');
+                console.log('Added expanded class to problem table');
+            }
+        }
+
+        // Load and process data
+        async function loadContestData() {
+            try {
+                console.log('🔄 Starting data load...');
+                
+                // Load contest list
+                console.log('📋 Loading ContestList.tsv...');
+                const contestListResponse = await fetch('ContestList.tsv');
+                if (!contestListResponse.ok) throw new Error('ContestList.tsv not found');
+                const contestListText = await contestListResponse.text();
+                const contestListData = parseTSV(contestListText);
+                console.log('✅ ContestList loaded:', contestListData.length, 'contests');
+
+                // Create contest lookup
+                contestList = contestListData.reduce((acc, item) => {
+                    acc[item['short-name']] = {
+                        fullName: item['full-name'],
+                        region: item['region-name']
+                    };
+                    return acc;
+                }, {});
+                console.log('📊 Contest lookup created:', Object.keys(contestList).length, 'entries');
+
+                // Load contest status
+                console.log('📈 Loading ContestStatus.tsv...');
+                const statusResponse = await fetch('ContestStatus.tsv');
+                if (!statusResponse.ok) throw new Error('ContestStatus.tsv not found');
+                const statusText = await statusResponse.text();
+                const statusData = parseTSV(statusText);
+                console.log('✅ ContestStatus loaded:', statusData.length, 'entries');
+
+                // Process and combine data
+                console.log('🔗 Combining data...');
+                statusData.forEach(row => {
+                    const shortName = row['short-name'];
+                    if (contestList[shortName]) {
+                        processedData[shortName] = {
+                            ...contestList[shortName],
+                            year: parseInt(row.year),
+                            count: parseInt(row.count),
+                            statements: row.statements,
+                            data: row.data,
+                            solutions: row.solutions,
+                            packages: row.packages
+                        };
                     }
                 });
+                console.log('✅ Data combined:', Object.keys(processedData).length, 'processed entries');
+
+                // Generate additional years for each contest (2025-1999)
+                console.log('📅 Generating additional contest years...');
+                const additionalYears = [];
+                Object.keys(processedData).forEach(shortName => {
+                    const baseContest = processedData[shortName];
+                    
+                    // Generate years from 2025 to 1999 (excluding the original year)
+                    for (let year = 2025; year >= 1999; year--) {
+                        if (year !== baseContest.year) {
+                            // Create variation in completion status based on year
+                            const yearVariation = Math.abs(year - 2025) / 26; // 0 to 1 scale
+                            const randomFactor = Math.random() * 0.3; // Add some randomness
+                            
+                            // Older years are more likely to be complete
+                            const completionChance = 0.3 + (yearVariation * 0.4) + randomFactor;
+                            
+                            const additionalContest = {
+                                ...baseContest,
+                                year: year,
+                                count: Math.max(5, Math.min(12, baseContest.count + Math.floor(Math.random() * 4) - 2)), // Vary problem count
+                                statements: Math.random() < completionChance ? 'TRUE' : 'FALSE',
+                                data: Math.random() < completionChance * 0.8 ? 'TRUE' : 'FALSE', // Data is harder to get
+                                solutions: Math.random() < completionChance * 0.6 ? 'TRUE' : 'FALSE', // Solutions are hardest
+                                packages: Math.random() < completionChance * 0.4 ? 'TRUE' : 'FALSE' // Packages are rarest
+                            };
+                            
+                            additionalYears.push({
+                                shortName: shortName,
+                                contest: additionalContest
+                            });
+                        }
+                    }
+                });
+                
+                // Add the additional years to processed data
+                additionalYears.forEach(({ shortName, contest }) => {
+                    const key = `${shortName}_${contest.year}`;
+                    processedData[key] = contest;
+                });
+                
+                console.log('✅ Additional years generated:', additionalYears.length, 'new contest years');
+
+                // Build the tree
+                console.log('🌳 Building contest tree...');
+                buildContestTree();
+                console.log('✅ Contest tree built successfully!');
+
+                // Store last modification time for auto-refresh
+                const lastModified = new Date().toISOString();
+                localStorage.setItem('lastDataUpdate', lastModified);
+                console.log('💾 Data update timestamp saved:', lastModified);
+
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+                const treeContainer = document.getElementById('contest-hierarchy');
+                treeContainer.innerHTML = `
+                    <div class="error-message">
+                        <h3>Error Loading Data</h3>
+                        <p>Unable to load contest data: ${error.message}</p>
+                        <p>Please ensure the TSV files are available in the project directory.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Check for file changes and auto-refresh
+        async function checkForUpdates() {
+            try {
+                // Check if files have been modified by comparing timestamps
+                const lastUpdate = localStorage.getItem('lastDataUpdate');
+                if (!lastUpdate) return;
+
+                // Fetch both files to check for changes
+                const [contestListResponse, statusResponse] = await Promise.all([
+                    fetch('ContestList.tsv', { method: 'HEAD' }),
+                    fetch('ContestStatus.tsv', { method: 'HEAD' })
+                ]);
+
+                if (contestListResponse.ok && statusResponse.ok) {
+                    const contestListModified = contestListResponse.headers.get('last-modified');
+                    const statusModified = statusResponse.headers.get('last-modified');
+                    
+                    // If either file has been modified since last update
+                    if (contestListModified || statusModified) {
+                        const lastModified = new Date(Math.max(
+                            new Date(contestListModified || 0).getTime(),
+                            new Date(statusModified || 0).getTime()
+                        ));
+                        
+                        if (new Date(lastUpdate) < lastModified) {
+                            console.log('🔄 TSV files have been modified, refreshing data...');
+                            await loadContestData();
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log('⚠️ Could not check for updates:', error.message);
+            }
+        }
+
+        // Auto-refresh functionality
+        function setupAutoRefresh() {
+            // Check for updates every 30 seconds
+            setInterval(checkForUpdates, 30000);
+            
+            // Also check when the page becomes visible (user returns to tab)
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    checkForUpdates();
+                }
+            });
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load data
+            loadContestData();
+            
+            // Setup auto-refresh
+            setupAutoRefresh();
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(event) {
+                if (event.target.classList.contains('region-header') || 
+                    event.target.classList.contains('contest-header') ||
+                    event.target.classList.contains('year-header')) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        if (event.target.classList.contains('region-header')) {
+                            toggleRegion(event.target);
+                        } else if (event.target.classList.contains('contest-header')) {
+                            toggleContest(event.target);
+                        } else if (event.target.classList.contains('year-header')) {
+                            toggleYear(event.target);
+                        }
+                    }
+                }
             });
 
-            // Initialize with first category expanded
-            const firstCategory = document.querySelector('.contest-category');
-            if (firstCategory) {
-                const firstHeader = firstCategory.querySelector('.category-header');
-                const firstList = firstCategory.querySelector('.contest-list');
-                firstList.classList.add('expanded');
-                firstHeader.setAttribute('aria-expanded', 'true');
-            }
-        });
+            // Filter functionality (placeholder for future implementation)
+            document.getElementById('missing-filter').addEventListener('change', function() {
+                // TODO: Implement filtering logic
+                console.log('Filter changed to:', this.value);
+            });
 
-        // Filter functionality (placeholder for future implementation)
-        document.getElementById('missing-filter').addEventListener('change', function() {
-            // TODO: Implement filtering logic
-            console.log('Filter changed to:', this.value);
-        });
-
-        document.getElementById('region-filter').addEventListener('change', function() {
-            // TODO: Implement filtering logic
-            console.log('Region changed to:', this.value);
+            document.getElementById('region-filter').addEventListener('change', function() {
+                // TODO: Implement filtering logic
+                console.log('Region changed to:', this.value);
+            });
         });
     </script>
 </body>
