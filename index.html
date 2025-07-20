@@ -54,14 +54,14 @@
                     </svg>
                     Contest Progress
                 </a></li>
-                <li><a href="#volunteers" class="nav-item">
+                <li><a href="#contributors" class="nav-item">
                     <svg class="nav-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" aria-hidden="true">
                         <path d="M11.3689 14V12.6667C11.3689 11.9594 11.0879 11.2811 10.5878 10.781C10.0877 10.281 9.40943 10 8.70219 10H4.70219C3.99495 10 3.31667 10.281 2.81657 10.781C2.31647 11.2811 2.03552 11.9594 2.03552 12.6667V14" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M6.70219 7.33333C8.17495 7.33333 9.36886 6.13943 9.36886 4.66667C9.36886 3.19391 8.17495 2 6.70219 2C5.22943 2 4.03552 3.19391 4.03552 4.66667C4.03552 6.13943 5.22943 7.33333 6.70219 7.33333Z" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M15.3688 14V12.6667C15.3683 12.0758 15.1717 11.5019 14.8097 11.0349C14.4477 10.5679 13.9409 10.2344 13.3688 10.0867" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M11.3688 2.08667C11.9424 2.23354 12.4508 2.56714 12.8139 3.03488C13.1769 3.50262 13.374 4.07789 13.374 4.67C13.374 5.26212 13.1769 5.83739 12.8139 6.30513C12.4508 6.77287 11.9424 7.10647 11.3688 7.25334" stroke="#64748B" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    Volunteers
+                    Contributors
                 </a></li>
                 <li><a href="#help" class="nav-item">
                     <svg class="nav-icon" width="17" height="16" viewBox="0 0 17 16" fill="none" aria-hidden="true">
@@ -114,6 +114,7 @@
                         <label for="missing-filter">Filter by missing:</label>
                         <select id="missing-filter" class="filter-select">
                             <option value="all">Show all</option>
+                            <option value="missing">Show any missing</option>
                             <option value="statements">Missing statements</option>
                             <option value="data">Missing test data</option>
                             <option value="solutions">Missing solutions</option>
@@ -137,25 +138,26 @@
                 </div>
             </section>
 
-            <!-- Volunteers Section -->
-            <section id="volunteers" class="volunteers-section">
+            <!-- Contributors Section -->
+            <section id="contributors" class="contributors-section">
                 <div class="section-header">
-                    <svg class="section-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                        <path d="M18.67 20L26 4" stroke="#020817" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M10.67 10.67L6.67 4.67" stroke="#020817" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M4 25.33L21.33 8" stroke="#020817" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <h2>Project Volunteers</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+                        <path d="M21.3334 28.5V25.8333C21.3334 24.4188 20.7715 23.0623 19.7713 22.0621C18.7711 21.0619 17.4145 20.5 16 20.5H8.00002C6.58553 20.5 5.22898 21.0619 4.22878 22.0621C3.22859 23.0623 2.66669 24.4188 2.66669 25.8333V28.5" stroke="#020817" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 15.1667C14.9455 15.1667 17.3334 12.7789 17.3334 9.83333C17.3334 6.88781 14.9455 4.5 12 4.5C9.0545 4.5 6.66669 6.88781 6.66669 9.83333C6.66669 12.7789 9.0545 15.1667 12 15.1667Z" stroke="#020817" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M29.3333 28.5V25.8333C29.3324 24.6516 28.9391 23.5037 28.2151 22.5698C27.4911 21.6358 26.4775 20.9688 25.3333 20.6733" stroke="#020817" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21.3333 4.67334C22.4805 4.96707 23.4974 5.63427 24.2235 6.56975C24.9496 7.50523 25.3438 8.65578 25.3438 9.84001C25.3438 11.0242 24.9496 12.1748 24.2235 13.1103C23.4974 14.0457 22.4805 14.7129 21.3333 15.0067" stroke="#020817" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    <h2>Project Contributors</h2>
                 </div>
                 <p class="section-description">Meet the dedicated team working to preserve ICPC history.</p>
                 
-                <div class="volunteers-grid">
-                    <div class="volunteer-card">
-                        <div class="volunteer-avatar">DJP</div>
-                        <div class="volunteer-info">
-                            <h3>Dr. Jane Placeholder</h3>
-                            <span class="volunteer-role">Project Lead</span>
-                            <p class="volunteer-affiliation">University of Technology</p>
+                <div class="contributors-grid">
+                    <div class="contributor-card">
+                        <div class="contributor-avatar">FN</div>
+                        <div class="contributor-info">
+                            <h3>Fredrik Niemelä</h3>
+                            <span class="contributor-role">Project Lead</span>
+                            <p class="contributor-affiliation">ICPC Role</p>
                             <p class="contributions-label">Contributions:</p>
                             <div class="contribution-tags">
                                 <span class="tag">Project coordination</span>
@@ -165,17 +167,17 @@
                             <div class="social-links">
                                 <a href="#" class="social-link">LinkedIn</a>
                                 <a href="#" class="social-link">GitHub</a>
-                                <a href="#" class="social-link">Email</a>
+                                <a href="mailto:fredrik@niemela.se" class="social-link">Email</a>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="volunteer-card">
-                        <div class="volunteer-avatar">AF</div>
-                        <div class="volunteer-info">
-                            <h3>Alex Fakename</h3>
-                            <span class="volunteer-role">Technical Lead</span>
-                            <p class="volunteer-affiliation">Tech Corporation</p>
+                    <div class="contributor-card">
+                        <div class="contributor-avatar">MR</div>
+                        <div class="contributor-info">
+                            <h3>Miguel Revilla Rodríguez</h3>
+                            <span class="contributor-role">Project Lead</span>
+                            <p class="contributor-affiliation">ICPC Role</p>
                             <p class="contributions-label">Contributions:</p>
                             <div class="contribution-tags">
                                 <span class="tag">Repository management</span>
@@ -185,16 +187,17 @@
                             <div class="social-links">
                                 <a href="#" class="social-link">LinkedIn</a>
                                 <a href="#" class="social-link">GitHub</a>
+                                <a href="mailto:yo@miguelrevilla.com" class="social-link">Email</a>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="volunteer-card">
-                        <div class="volunteer-avatar">ME</div>
-                        <div class="volunteer-info">
-                            <h3>Maria Example</h3>
-                            <span class="volunteer-role">Regional Coordinator</span>
-                            <p class="volunteer-affiliation">European University</p>
+                    <div class="contributor-card">
+                        <div class="contributor-avatar">CL</div>
+                        <div class="contributor-info">
+                            <h3>Christian Yongwhan Lim</h3>
+                            <span class="contributor-role">Project Lead</span>
+                            <p class="contributor-affiliation">ICPC Role</p>
                             <p class="contributions-label">Contributions:</p>
                             <div class="contribution-tags">
                                 <span class="tag">European contests</span>
@@ -204,17 +207,17 @@
                             <div class="social-links">
                                 <a href="#" class="social-link">LinkedIn</a>
                                 <a href="#" class="social-link">GitHub</a>
-                                <a href="#" class="social-link">Email</a>
+                                <a href="mailto:christian.lim@icpc.global" class="social-link">Email</a>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="volunteer-card">
-                        <div class="volunteer-avatar">DT</div>
-                        <div class="volunteer-info">
-                            <h3>David Testuser</h3>
-                            <span class="volunteer-role">Archive Specialist</span>
-                            <p class="volunteer-affiliation">Asian Institute of Technology</p>
+                    <div class="contributor-card">
+                        <div class="contributor-avatar">AL</div>
+                        <div class="contributor-info">
+                            <h3>Ann Lee</h3>
+                            <span class="contributor-role">Intern</span>
+                            <p class="contributor-affiliation">Columbia University</p>
                             <p class="contributions-label">Contributions:</p>
                             <div class="contribution-tags">
                                 <span class="tag">Asian contests</span>
@@ -224,25 +227,47 @@
                             <div class="social-links">
                                 <a href="#" class="social-link">LinkedIn</a>
                                 <a href="#" class="social-link">GitHub</a>
+                                <a href="mailto:ann.lee@icpc.foundation" class="social-link">Email</a>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="volunteer-card">
-                        <div class="volunteer-avatar">SD</div>
-                        <div class="volunteer-info">
-                            <h3>Sarah Demodata</h3>
-                            <span class="volunteer-role">Community Manager</span>
-                            <p class="volunteer-affiliation">Community Organization</p>
+                    <div class="contributor-card">
+                        <div class="contributor-avatar">EL</div>
+                        <div class="contributor-info">
+                            <h3>Erica Lee</h3>
+                            <span class="contributor-role">Intern</span>
+                            <p class="contributor-affiliation">Princeton University</p>
                             <p class="contributions-label">Contributions:</p>
                             <div class="contribution-tags">
-                                <span class="tag">Volunteer coordination</span>
+                                <span class="tag">contributor coordination</span>
                                 <span class="tag">Documentation</span>
                                 <span class="tag">External relations</span>
                             </div>
                             <div class="social-links">
                                 <a href="#" class="social-link">LinkedIn</a>
-                                <a href="#" class="social-link">Email</a>
+                                <a href="#" class="social-link">GitHub</a>
+                                <a href="mailto:erica.lee@icpc.foundation" class="social-link">Email</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contributor-card">
+                        <div class="contributor-avatar">NV</div>
+                        <div class="contributor-info">
+                            <h3>Nicholas Vickery</h3>
+                            <span class="contributor-role">Intern</span>
+                            <p class="contributor-affiliation">Princeton University</p>
+                            <p class="contributions-label">Contributions:</p>
+                            <div class="contribution-tags">
+                                <span class="tag">contributor coordination</span>
+                                <span class="tag">Documentation</span>
+                                <span class="tag">External relations</span>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link">LinkedIn</a>
+                                <a href="#" class="social-link">GitHub</a>
+                                <a href="mailto:nicholas.vickery@icpc.foundation" class="social-link">Email</a>
                             </div>
                         </div>
                     </div>
@@ -251,16 +276,10 @@
 
             <!-- How to Help Section -->
             <section id="help" class="help-section">
-                <h2>How You Can Help</h2>
-                <p class="section-description">We need your help to complete this important archival project.</p>
-                
+                <h2>How You Can Help</h2>                
                 <div class="help-cards">
                     <div class="help-card">
                         <div class="help-card-header">
-                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                                <path d="M10.67 13.33L14.67 2" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M4 4L9.33 1.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
                             <h3>Problem Statements</h3>
                         </div>
                         <p>Help us collect missing problem statements from ICPC contests</p>
@@ -276,11 +295,6 @@
                     
                     <div class="help-card">
                         <div class="help-card-header">
-                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                                <path d="M12 4L2 1.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 11.33L2 3.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 8L2 8" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
                             <h3>Test Data</h3>
                         </div>
                         <p>Provide test cases and input/output data for problems</p>
@@ -297,10 +311,6 @@
                     
                     <div class="help-card">
                         <div class="help-card-header">
-                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                                <path d="M4 8L10.67 4" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M4 8L1.33 4" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
                             <h3>Solutions</h3>
                         </div>
                         <p>Share solution code and editorial explanations</p>
@@ -318,11 +328,6 @@
                     
                     <div class="help-card">
                         <div class="help-card-header">
-                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                                <path d="M12.67 12.67L2 1.33" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M11.6 3.33L2.2 4.67" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M6 2.85L5 3.43" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
                             <h3>Problem Packages</h3>
                         </div>
                         <p>Complete problem packages in standard formats</p>
@@ -339,9 +344,6 @@
                     
                     <div class="help-card">
                         <div class="help-card-header">
-                            <svg class="help-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                                <path d="M12.67 12.67L2 2" stroke="#0058CC" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
                             <h3>Create Packages</h3>
                         </div>
                         <p>Help create problem packages when we have statements, data, and solutions</p>
@@ -354,7 +356,7 @@
                                 <li>Experience with contest management systems</li>
                             </ul>
                         </div>
-                        <button class="help-button">Volunteer to Create Packages</button>
+                        <button class="help-button">Contribute to Create Packages</button>
                     </div>
                 </div>
             </section>
@@ -431,17 +433,18 @@
                     regions[region] = {};
                 }
                 
-                // Extract the base contest name (without year suffix)
-                const baseContestName = contest.fullName;
+                // Use shortName as the key to group all years of the same contest type
+                const shortName = key.includes('_') ? key.split('_')[0] : key;
                 
-                if (!regions[region][baseContestName]) {
-                    regions[region][baseContestName] = {
-                        fullName: baseContestName,
+                if (!regions[region][shortName]) {
+                    regions[region][shortName] = {
+                        fullName: contest.fullName,
+                        shortName: shortName,
                         contests: []
                     };
                 }
                 
-                regions[region][baseContestName].contests.push(contest);
+                regions[region][shortName].contests.push(contest);
             });
 
             // Create HTML for each region in order
@@ -494,7 +497,7 @@
                     const totalProblems = category.contests.reduce((sum, c) => sum + parseInt(c.count || 0), 0);
 
                     // Debug: Log the actual data being used
-                    console.log(`📊 Contest: ${category.fullName}`);
+                    console.log(`   Contest: ${category.fullName}`);
                     console.log(`   Contests: ${category.contests.length}`);
                     console.log(`   Progress: Stmt=${subcategoryProgress.stmt}%, Data=${subcategoryProgress.data}%, Sol=${subcategoryProgress.sol}%, Pkg=${subcategoryProgress.pkg}%`);
                     category.contests.forEach(contest => {
@@ -571,7 +574,7 @@
                     contestItem.appendChild(yearsListContainer);
                     contestsList.appendChild(contestItem);
                     
-                    console.log(`✅ Created contest item for ${category.fullName} with ${category.contests.length} years`);
+                    console.log(`Created contest item for ${category.fullName} with ${category.contests.length} years`);
                 });
 
                 regionDiv.appendChild(regionHeader);
@@ -627,14 +630,12 @@
             const hasSolution = contest.solutions === 'TRUE';
             const hasPackage = contest.packages === 'TRUE';
             
-            // Generate problem titles based on year and contest type
-            const problemTitles = generateProblemTitles(contest.year, contest.fullName);
-            
             // Use actual problem count from contest data
             const problemCount = parseInt(contest.count) || 0;
-            const problemsToShow = problemTitles.slice(0, problemCount);
             
-            problemsToShow.forEach((problem, index) => {
+            // Create problem rows based on actual count
+            for (let i = 0; i < problemCount; i++) {
+                const problemLetter = String.fromCharCode(65 + i); // A, B, C, etc.
                 const row = document.createElement('tr');
                 
                 // Use actual completion status from TSV data for all problems in the contest
@@ -645,8 +646,8 @@
                 const lastUpdated = generateLastUpdated(hasStatement, hasData, hasSolution, hasPackage);
                 
                 row.innerHTML = `
-                    <td class="problem-name">${problem.label}</td>
-                    <td class="problem-title">${problem.title}</td>
+                    <td class="problem-name">${problemLetter}</td>
+                    <td class="problem-title">Problem ${problemLetter}</td>
                     <td class="status-cell">${hasStatement ? '<span class="status-icon"></span>' : '<span class="status-empty"></span>'}</td>
                     <td class="status-cell">${hasData ? '<span class="status-icon"></span>' : '<span class="status-empty"></span>'}</td>
                     <td class="status-cell">${hasSolution ? '<span class="status-icon"></span>' : '<span class="status-empty"></span>'}</td>
@@ -656,34 +657,12 @@
                 `;
                 
                 tbody.appendChild(row);
-            });
+            }
             
             table.appendChild(tbody);
             tableContainer.appendChild(table);
             
             return tableContainer;
-        }
-
-        // Generate problem titles based on year and contest type
-        function generateProblemTitles(year, contestName) {
-            const baseTitles = [
-                'ACM', 'Agglometer', 'Dance Recital', 'Hidden', 'Kitchen',
-                'Lineup', 'Mosiac', 'Pyro', 'Wordclouds', 'Algorithm',
-                'Binary Search', 'Dynamic Programming', 'Graph Theory',
-                'String Matching', 'Geometry', 'Number Theory', 'Combinatorics',
-                'Data Structures', 'Greedy Algorithm', 'Divide and Conquer'
-            ];
-            
-            // Create year-specific variations
-            const yearTitles = baseTitles.map((title, index) => {
-                const label = String.fromCharCode(65 + index); // A, B, C, etc.
-                return {
-                    label: label,
-                    title: `${title} ${year}`
-                };
-            });
-            
-            return yearTitles;
         }
 
         // Generate last updated time based on completion status
@@ -761,15 +740,15 @@
         // Load and process data
         async function loadContestData() {
             try {
-                console.log('🔄 Starting data load...');
+                console.log('Starting data load...');
                 
                 // Load contest list
-                console.log('📋 Loading ContestList.tsv...');
-                const contestListResponse = await fetch('ContestList.tsv');
+                console.log('Loading ContestList.tsv...');
+                const contestListResponse = await fetch('ContestList.tsv?v=' + Date.now());
                 if (!contestListResponse.ok) throw new Error('ContestList.tsv not found');
                 const contestListText = await contestListResponse.text();
                 const contestListData = parseTSV(contestListText);
-                console.log('✅ ContestList loaded:', contestListData.length, 'contests');
+                console.log('ContestList loaded:', contestListData.length, 'contests');
 
                 // Create contest lookup
                 contestList = contestListData.reduce((acc, item) => {
@@ -779,22 +758,24 @@
                     };
                     return acc;
                 }, {});
-                console.log('📊 Contest lookup created:', Object.keys(contestList).length, 'entries');
+                console.log('Contest lookup created:', Object.keys(contestList).length, 'entries');
 
                 // Load contest status
-                console.log('📈 Loading ContestStatus.tsv...');
-                const statusResponse = await fetch('ContestStatus.tsv');
+                console.log('Loading ContestStatus.tsv...');
+                const statusResponse = await fetch('ContestStatus.tsv?v=' + Date.now());
                 if (!statusResponse.ok) throw new Error('ContestStatus.tsv not found');
                 const statusText = await statusResponse.text();
                 const statusData = parseTSV(statusText);
-                console.log('✅ ContestStatus loaded:', statusData.length, 'entries');
+                console.log('ContestStatus loaded:', statusData.length, 'entries');
 
-                // Process and combine data
-                console.log('🔗 Combining data...');
+                // Process and combine data - use only real TSV data
+                console.log('Combining data...');
                 statusData.forEach(row => {
                     const shortName = row['short-name'];
                     if (contestList[shortName]) {
-                        processedData[shortName] = {
+                        // Create unique key for each year
+                        const uniqueKey = `${shortName}_${row.year}`;
+                        processedData[uniqueKey] = {
                             ...contestList[shortName],
                             year: parseInt(row.year),
                             count: parseInt(row.count),
@@ -803,64 +784,35 @@
                             solutions: row.solutions,
                             packages: row.packages
                         };
-                    }
-                });
-                console.log('✅ Data combined:', Object.keys(processedData).length, 'processed entries');
-
-                // Generate additional years for each contest (2025-1999)
-                console.log('📅 Generating additional contest years...');
-                const additionalYears = [];
-                Object.keys(processedData).forEach(shortName => {
-                    const baseContest = processedData[shortName];
-                    
-                    // Generate years from 2025 to 1999 (excluding the original year)
-                    for (let year = 2025; year >= 1999; year--) {
-                        if (year !== baseContest.year) {
-                            // Create variation in completion status based on year
-                            const yearVariation = Math.abs(year - 2025) / 26; // 0 to 1 scale
-                            const randomFactor = Math.random() * 0.3; // Add some randomness
-                            
-                            // Older years are more likely to be complete
-                            const completionChance = 0.3 + (yearVariation * 0.4) + randomFactor;
-                            
-                            const additionalContest = {
-                                ...baseContest,
-                                year: year,
-                                count: Math.max(5, Math.min(12, baseContest.count + Math.floor(Math.random() * 4) - 2)), // Vary problem count
-                                statements: Math.random() < completionChance ? 'TRUE' : 'FALSE',
-                                data: Math.random() < completionChance * 0.8 ? 'TRUE' : 'FALSE', // Data is harder to get
-                                solutions: Math.random() < completionChance * 0.6 ? 'TRUE' : 'FALSE', // Solutions are hardest
-                                packages: Math.random() < completionChance * 0.4 ? 'TRUE' : 'FALSE' // Packages are rarest
-                            };
-                            
-                            additionalYears.push({
-                                shortName: shortName,
-                                contest: additionalContest
-                            });
+                        
+                        // Debug: Log some sample data
+                        if (uniqueKey.includes('wf_2011') || uniqueKey.includes('seerc_2024')) {
+                            console.log(`Sample data for ${uniqueKey}:`, processedData[uniqueKey]);
                         }
                     }
                 });
+                console.log('Data combined:', Object.keys(processedData).length, 'processed entries');
                 
-                // Add the additional years to processed data
-                additionalYears.forEach(({ shortName, contest }) => {
-                    const key = `${shortName}_${contest.year}`;
-                    processedData[key] = contest;
+                // Debug: Show how many entries we have for each contest type
+                const contestCounts = {};
+                Object.keys(processedData).forEach(key => {
+                    const shortName = key.includes('_') ? key.split('_')[0] : key;
+                    contestCounts[shortName] = (contestCounts[shortName] || 0) + 1;
                 });
-                
-                console.log('✅ Additional years generated:', additionalYears.length, 'new contest years');
+                console.log('Contest counts by type:', contestCounts);
 
                 // Build the tree
-                console.log('🌳 Building contest tree...');
-                buildContestTree();
-                console.log('✅ Contest tree built successfully!');
+                console.log('Building contest tree...');
+                buildContestTreeWithFilters('all', 'all');
+                console.log('Contest tree built successfully!');
 
                 // Store last modification time for auto-refresh
                 const lastModified = new Date().toISOString();
                 localStorage.setItem('lastDataUpdate', lastModified);
-                console.log('💾 Data update timestamp saved:', lastModified);
+                console.log('Data update timestamp saved:', lastModified);
 
             } catch (error) {
-                console.error('❌ Error loading data:', error);
+                console.error('Error loading data:', error);
                 const treeContainer = document.getElementById('contest-hierarchy');
                 treeContainer.innerHTML = `
                     <div class="error-message">
@@ -897,13 +849,13 @@
                         ));
                         
                         if (new Date(lastUpdate) < lastModified) {
-                            console.log('🔄 TSV files have been modified, refreshing data...');
+                            console.log('TSV files have been modified, refreshing data...');
                             await loadContestData();
                         }
                     }
                 }
             } catch (error) {
-                console.log('⚠️ Could not check for updates:', error.message);
+                console.log('Could not check for updates:', error.message);
             }
         }
 
@@ -918,6 +870,237 @@
                     checkForUpdates();
                 }
             });
+        }
+
+        // Build contest tree with filters
+        function buildContestTreeWithFilters(missingFilter, regionFilter) {
+            console.log('Building contest tree with filters:', { missingFilter, regionFilter });
+            
+            const treeContainer = document.getElementById('contest-hierarchy');
+            treeContainer.innerHTML = '';
+
+            // Define region order
+            const regionOrder = ['International', 'North America', 'Europe'];
+            
+            // Group contests by region
+            const regions = {};
+            Object.keys(processedData).forEach(key => {
+                const contest = processedData[key];
+                const region = contest.region;
+                
+                // Apply region filter
+                if (regionFilter !== 'all' && region !== regionFilter) {
+                    return;
+                }
+                
+                if (!regions[region]) {
+                    regions[region] = {};
+                }
+                
+                // Use shortName as the key to group all years of the same contest type
+                const shortName = key.includes('_') ? key.split('_')[0] : key;
+                
+                if (!regions[region][shortName]) {
+                    regions[region][shortName] = {
+                        fullName: contest.fullName,
+                        shortName: shortName,
+                        contests: []
+                    };
+                }
+                
+                regions[region][shortName].contests.push(contest);
+            });
+
+            console.log('Grouped regions:', Object.keys(regions));
+            console.log('Regions data:', regions);
+
+            // Create HTML for each region in order
+            regionOrder.forEach(region => {
+                if (!regions[region]) return;
+                
+                const regionData = regions[region];
+                console.log(`Processing region: ${region} with ${Object.keys(regionData).length} contest types`);
+                
+                const regionDiv = document.createElement('div');
+                regionDiv.className = 'region-section';
+
+                // Calculate region totals
+                let totalContests = 0;
+                let totalProblems = 0;
+                Object.values(regionData).forEach(category => {
+                    totalContests += category.contests.length;
+                    totalProblems += category.contests.reduce((sum, c) => sum + parseInt(c.count || 0), 0);
+                });
+
+                // Calculate region progress
+                const allRegionContests = Object.values(regionData).flatMap(cat => cat.contests);
+                const regionProgress = calculateProgress(allRegionContests);
+
+                // Create region header
+                const regionHeader = document.createElement('div');
+                regionHeader.className = 'region-header';
+                regionHeader.onclick = () => toggleRegion(regionHeader);
+                regionHeader.setAttribute('role', 'button');
+                regionHeader.setAttribute('tabindex', '0');
+                regionHeader.innerHTML = `
+                    <h3>${region}</h3>
+                    <div class="region-stats">
+                        <span>${totalContests} contests</span>
+                        <span>${totalProblems} problems</span>
+                        <div class="progress-badges">
+                            ${createProgressBadges(regionProgress)}
+                        </div>
+                    </div>
+                `;
+
+                // Create contests list
+                const contestsList = document.createElement('ul');
+                contestsList.className = 'region-contests';
+
+                // Add contests - sort by year (most recent first)
+                Object.entries(regionData).forEach(([key, category]) => {
+                    // Sort contests by year (most recent first)
+                    category.contests.sort((a, b) => b.year - a.year);
+                    
+                    console.log(`Processing contest: ${category.fullName} with ${category.contests.length} years`);
+                    
+                    // Apply missing filter - show only contests with missing components
+                    if (missingFilter !== 'all') {
+                        console.log(`Checking contest: ${category.fullName} for missing items (filter: ${missingFilter})`);
+                        console.log(`Contests in category:`, category.contests.length);
+                        
+                        const hasMissingItems = category.contests.some(contest => {
+                            let isMissing = false;
+                            
+                            if (missingFilter === 'missing') {
+                                // Show any contest with any missing component
+                                const stmtMissing = contest.statements !== 'TRUE';
+                                const dataMissing = contest.data !== 'TRUE';
+                                const solMissing = contest.solutions !== 'TRUE';
+                                const pkgMissing = contest.packages !== 'TRUE';
+                                isMissing = stmtMissing || dataMissing || solMissing || pkgMissing;
+                                
+                                console.log(`   ${contest.year}: Stmt=${contest.statements}(${stmtMissing}), Data=${contest.data}(${dataMissing}), Sol=${contest.solutions}(${solMissing}), Pkg=${contest.packages}(${pkgMissing}), Missing=${isMissing}`);
+                            } else if (missingFilter === 'statements') {
+                                // Show only contests missing statements
+                                isMissing = contest.statements !== 'TRUE';
+                                console.log(`   ${contest.year}: Stmt=${contest.statements}, Missing=${isMissing}`);
+                            } else if (missingFilter === 'data') {
+                                // Show only contests missing test data
+                                isMissing = contest.data !== 'TRUE';
+                                console.log(`   ${contest.year}: Data=${contest.data}, Missing=${isMissing}`);
+                            } else if (missingFilter === 'solutions') {
+                                // Show only contests missing solutions
+                                isMissing = contest.solutions !== 'TRUE';
+                                console.log(`   ${contest.year}: Sol=${contest.solutions}, Missing=${isMissing}`);
+                            } else if (missingFilter === 'packages') {
+                                // Show only contests missing packages
+                                isMissing = contest.packages !== 'TRUE';
+                                console.log(`   ${contest.year}: Pkg=${contest.packages}, Missing=${isMissing}`);
+                            }
+                            
+                            return isMissing;
+                        });
+                        
+                        console.log(`   Has missing items: ${hasMissingItems}`);
+                        
+                        if (!hasMissingItems) {
+                            console.log(`Skipping ${category.fullName} - no missing items for filter: ${missingFilter}`);
+                            return; // Skip this contest if it has no missing items
+                        } else {
+                            console.log(`Including ${category.fullName} - has missing items for filter: ${missingFilter}`);
+                        }
+                    }
+                    
+                    const subcategoryProgress = calculateProgress(category.contests);
+                    const totalProblems = category.contests.reduce((sum, c) => sum + parseInt(c.count || 0), 0);
+
+                    const contestItem = document.createElement('li');
+                    contestItem.className = 'contest-item';
+
+                    const contestHeader = document.createElement('div');
+                    contestHeader.className = 'contest-header';
+                    contestHeader.onclick = () => toggleContest(contestHeader);
+                    contestHeader.setAttribute('role', 'button');
+                    contestHeader.setAttribute('tabindex', '0');
+                    contestHeader.setAttribute('aria-expanded', 'false');
+                    contestHeader.innerHTML = `
+                        <div class="contest-info">
+                            <div class="contest-name">${category.fullName}</div>
+                            <div class="contest-meta">${category.contests.length} contests • ${totalProblems} problems</div>
+                        </div>
+                        <div class="contest-progress">
+                            <div class="progress-badges">
+                                ${createProgressBadges(subcategoryProgress)}
+                            </div>
+                        </div>
+                    `;
+
+                    // Create years list container
+                    const yearsListContainer = document.createElement('div');
+                    yearsListContainer.className = 'years-list-container';
+
+                    // Create years list
+                    const yearsList = document.createElement('ul');
+                    yearsList.className = 'years-list';
+
+                    // Add individual year items
+                    category.contests.forEach(contest => {
+                        const yearItem = document.createElement('li');
+                        yearItem.className = 'year-item';
+
+                        const yearHeader = document.createElement('div');
+                        yearHeader.className = 'year-header';
+                        yearHeader.onclick = () => toggleYear(yearHeader);
+                        yearHeader.setAttribute('role', 'button');
+                        yearHeader.setAttribute('tabindex', '0');
+                        yearHeader.setAttribute('aria-expanded', 'false');
+                        yearHeader.innerHTML = `
+                            <div class="year-info">
+                                <span class="year-badge">${contest.year}</span>
+                                <span class="year-name">${contest.fullName} ${contest.year}</span>
+                                <span class="year-problems">${contest.count} problems</span>
+                            </div>
+                            <div class="year-progress">
+                                <div class="progress-badges">
+                                    ${createProgressBadges(calculateProgress([contest]))}
+                                </div>
+                            </div>
+                        `;
+
+                        // Create problem table container for this year
+                        const problemTableContainer = document.createElement('div');
+                        problemTableContainer.className = 'problem-table-container';
+                        const problemTable = createProblemTable(contest);
+                        problemTableContainer.appendChild(problemTable);
+
+                        yearItem.appendChild(yearHeader);
+                        yearItem.appendChild(problemTableContainer);
+                        yearsList.appendChild(yearItem);
+                    });
+
+                    yearsListContainer.appendChild(yearsList);
+                    contestItem.appendChild(contestHeader);
+                    contestItem.appendChild(yearsListContainer);
+                    contestsList.appendChild(contestItem);
+                });
+
+                regionDiv.appendChild(regionHeader);
+                regionDiv.appendChild(contestsList);
+                treeContainer.appendChild(regionDiv);
+            });
+
+            // Initialize with first region expanded
+            const firstRegion = treeContainer.querySelector('.region-section');
+            if (firstRegion) {
+                const firstHeader = firstRegion.querySelector('.region-header');
+                const firstList = firstRegion.querySelector('.region-contests');
+                firstList.style.display = 'block';
+                firstHeader.setAttribute('aria-expanded', 'true');
+            }
+            
+            console.log('Contest tree built successfully!');
+            console.log('Final tree structure:', treeContainer.innerHTML.substring(0, 200) + '...');
         }
 
         // Initialize when DOM is loaded
@@ -946,16 +1129,27 @@
                 }
             });
 
-            // Filter functionality (placeholder for future implementation)
+            // Filter functionality
             document.getElementById('missing-filter').addEventListener('change', function() {
-                // TODO: Implement filtering logic
-                console.log('Filter changed to:', this.value);
+                applyFilters();
             });
 
             document.getElementById('region-filter').addEventListener('change', function() {
-                // TODO: Implement filtering logic
-                console.log('Region changed to:', this.value);
+                applyFilters();
             });
+
+            // Apply filters to the contest tree
+            function applyFilters() {
+                const missingFilter = document.getElementById('missing-filter').value;
+                const regionFilter = document.getElementById('region-filter').value;
+                
+                console.log('Applying filters:', { missingFilter, regionFilter });
+                console.log('Total processed data entries:', Object.keys(processedData).length);
+                console.log('Sample processed data:', Object.keys(processedData).slice(0, 5).map(key => ({ key, data: processedData[key] })));
+                
+                // Rebuild the tree with filters applied
+                buildContestTreeWithFilters(missingFilter, regionFilter);
+            }
         });
     </script>
 </body>
