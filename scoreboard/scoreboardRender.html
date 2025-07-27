@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICPC Scoreboard - Practice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    .icpc-header {
+      background: #fff;
+      border-bottom: 2px solid #0057b8;
+      padding: 24px 0 12px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      margin-bottom: 2.5em;
+    }
+    .icpc-header img {
+      height: 100px;
+      vertical-align: middle;
+      margin: 0 20px;
+    }
+    .icpc-title {
+      font-size: 2.2em;
+      color: #000000;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+    }
+
+    .icpc-subtitle {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 0.5em;
+    }
+    .icpc-nav {
+      margin: 10px 0 20px 0;
+      text-align: center;
+    }
+    .icpc-nav a {
+      color: #5a5a5a;
+      background: #e3eaf2;
+      border-radius: 4px;
+      padding: 6px 16px;
+      margin: 0 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .icpc-nav a.active, .icpc-nav a:hover {
+      background: #0057b8;
+      color: #fff;
+    }
+    .scoreboard-container {
+      max-width: 1500px;
+      margin: 30px auto 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      padding: 24px 12px 12px 12px;
+      overflow-x: auto;
+    }
+    .scoreboard-legend {
+      margin-bottom: 10px;
+      font-size: 0.9em;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .scoreboard-legend span {
+      display: flex;
+      align-items: center;
+      height: 25px;
+    }
+    .legend-box {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      line-height: 30px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      margin-right: 8px;
+    }
+    .legend-green { background: #4caf50; border-color: #a5d6a7; }
+    .legend-darkgreen { background: #227627; border-color: #256029; }
+    .legend-red { background: #f44336; border-color: #e57373; }
+    .legend-white { background: #fff; border-color: #bbb; }
+    .legend-grey { background: #e0e0e0; border-color: #bbb; }
+    .scoreboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1em;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      font-family: 'Verdana', sans-serif;
+    }
+    .scoreboard-table th, .scoreboard-table td {
+      border: 1px solid #b5c6e0;
+      text-align: center;
+      padding: 12px 4px;
+      min-width: 50px;
+    }
+    .scoreboard-table td.total {
+      background: #f3f3f3;
+      font-size: 1.0em;
+      font-weight: 500;
+      max-width: 15px;
+    }
+    .scoreboard-table th.problem-col,
+    .scoreboard-table td:not(.rank):not(.name):not(.solved):not(.time):not(.total) {
+      border-left: none;
+      border-right: none;
+    }
+    .problem-circle {
+      display: inline-block;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      line-height: 38px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+      margin-right: 8px;
+    }
+    .circle-solved {
+      background: #4caf50;
+      color: white;
+    }
+    .circle-first-solve {
+      background: #227627;
+      color: white;
+      border: 1px solid #227627;
+      
+    }
+    .circle-failed {
+      background: #f44336;
+      color: white;
+    }
+    .circle-pending {
+      background: #ff9800;
+      color: white;
+    }
+    .circle-unsolved {
+      background: #e0e0e0;
+      color: #666;
+    }
+    .problem-time {
+      font-size: 13px;
+      color: #666;
+      display: block;
+      margin-top: 2px;
+    }
+    .scoreboard-table th {
+      background: #0057b8;
+      color: #fff;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .scoreboard-table th.problem-col {
+      background: #1976d2;
+    }
+    .scoreboard-table td.rank {
+      font-weight: bold;
+      background: #e3eaf2;
+      color: #0057b8;
+    }
+    .scoreboard-table td.name {
+      text-align: center;
+      font-weight: 400;
+      max-width: 180px;
+
+    }
+    .scoreboard-table td.solved {
+      font-weight: bold;
+      color: #388e3c;
+      background: #e8f5e9;
+    }
+    .scoreboard-table td.time {
+      font-size: 0.9em;
+      font: weight 8px;
+      color: #333;
+      background: #f3f3f3;
+      min-width: 60px;
+      max-width: 65px;
+    }
+
+    .cell-solved {
+      background: #c8e6c9 !important;
+      color: #256029;
+      font-weight: bold;
+    }
+    .cell-first-solve {
+      background: #388e3c !important;
+      color: #fff !important;
+      font-weight: bold;
+      border: 2px solid #256029;
+    }
+    .cell-unsolved {
+      background: #fff !important;
+      color: #b71c1c;
+    }
+    .cell-failed {
+      background: #ffcdd2 !important;
+      color: #b71c1c;
+      font-weight: bold;
+    }
+    .cell-pending {
+      background: #fffde7 !important;
+      color: #ffdb70;
+    }
+    
+    .problem-header {
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .problem-header:hover {
+      background-color: #1565c0 !important;
+    }
+    
+    .problem-header.clicked {
+      background-color: #0d47a1 !important;
+    }
+    
+    .problem-modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .problem-modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    
+    .problem-modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #666;
+    }
+    
+    .problem-modal-close:hover {
+      color: #000;
+    }
+    
+    .problem-modal-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #0057b8;
+    }
+    
+    .problem-modal-name {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    
+    .footer {
+      text-align: center;
+      color: #888;
+      font-size: 0.95em;
+      margin: 30px 0 10px 0;
+    }
+    
+    @media (max-width: 700px) {
+      .scoreboard-table th, .scoreboard-table td { font-size: 0.95em; min-width: 32px; padding: 4px 2px; }
+      .scoreboard-table td.name { min-width: 80px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="icpc-header">
+    <!-- sample logo taken from 2025 -->
+    <img src="https://nac.icpc.global/scoreboard/2025/regional-header.png" alt="ICPC Logo" height="80" style="display:block;margin:0 auto 10px auto;">
+    <!-- <span class="icpc-title">The 2021 ICPC North America Championship</span><br> -->
+    <div class="icpc-title" id="contest-title">Loading...</div>
+    <div class="contest-times" id="contest-times" style="font-size:1em;color:#444;margin-bottom:0.5em;"></div>
+  </div>
+  <div class="icpc-nav">
+    <a href="#" class="active" data-division="all">Full Contest Standings</a>
+    <a href="#" data-division="NAC Central">NAC Central Division Standings</a>
+    <a href="#" data-division="NAC East">NAC East Division Standings</a>
+    <a href="#" data-division="NAC South">NAC South Division Standings</a>
+    <a href="#" data-division="NAC West">NAC West Division Standings</a>
+    
+  </div>
+  <div class="scoreboard-container">
+    <div class="scoreboard-legend">
+      <span><span class="legend-box legend-darkgreen"></span>First To Solve</span>
+      <span><span class="legend-box legend-green"></span>Solved</span>
+      <span><span class="legend-box legend-red"></span>Attempted (Unsolved)</span>
+      <span><span class="legend-box legend-grey"></span>Not Attempted</span>
+    </div>
+    <div id="loading" class="loading">Loading scoreboard data...</div>
+    <div id="error" class="error" style="display: none;">Error loading data</div>
+    <div id="scoreboard" style="display: none;"></div>
+  </div>
+  <!-- <div class="awards-section">
+    <div class="awards-title">Awards & Achievements</div>
+    <div id="awards" class="awards-grid"></div>
+  </div> -->
+  <div class="footer">
+    Created by ICPC Practice | Last updated <span id="lastUpdated">...</span>
+  </div>
+  
+  <div id="problemModal" class="problem-modal">
+    <div class="problem-modal-content">
+      <span class="problem-modal-close">&times;</span>
+      <div class="problem-modal-title">Problem Information</div>
+      <div class="problem-modal-name" id="modalProblemName"></div>
+    </div>
+  </div>
+  <script>
+    let scoreboardData, teamsData, awardsData, apiData, problemNamesData;
+    let currentDivision = 'all';
+    
+    // trying to separate based on the organization IDs
+    function detectDivision(team) {
+      if (!team || !team.organization_id) return null;
+      
+      const orgId = team.organization_id.toLowerCase();
+      
+      // central division
+      // (.ca domains) and central us states
+      if (orgId.includes('.ca') || 
+          orgId.includes('purdue.edu') || orgId.includes('wisc.edu') || orgId.includes('umich.edu') ||
+          orgId.includes('uc.edu') || orgId.includes('case.edu') || orgId.includes('illinois.edu') || 
+          orgId.includes('osu.edu') || orgId.includes('msoe.edu') || orgId.includes('depaul.edu') ||
+          orgId.includes('louisville.edu')) {
+        return "NAC Central";
+      }
+      
+      // east division
+      if (orgId.includes('mit.edu') || orgId.includes('swarthmore.edu') || orgId.includes('yale.edu') ||
+          orgId.includes('cmu.edu') || orgId.includes('rochester.edu') || orgId.includes('northeastern.edu') ||
+          orgId.includes('rutgers.edu') || orgId.includes('princeton.edu') || orgId.includes('virginia.edu') ||
+          orgId.includes('columbia.edu') || orgId.includes('harvard.edu') || orgId.includes('jhu.edu')) {
+        return "NAC East";
+      }
+      
+      // south division
+      if (orgId.includes('gatech.edu') || orgId.includes('utdallas.edu') || orgId.includes('tamu.edu') ||
+          orgId.includes('ucf.edu') || orgId.includes('emory.edu') || orgId.includes('utexas.edu') ||
+          orgId.includes('unc.edu') || orgId.includes('unt.edu') || orgId.includes('duke.edu') ||
+          orgId.includes('rice.edu') || orgId.includes('bju.edu') || orgId.includes('clemson.edu')) {
+        return "NAC South";
+      }
+      
+      // west division
+      if (orgId.includes('ucsd.edu') || orgId.includes('ucla.edu') || orgId.includes('berkeley.edu') ||
+          orgId.includes('washington.edu') || orgId.includes('caltech.edu') || orgId.includes('stanford.edu') ||
+          orgId.includes('ucr.edu')) {
+        return "NAC West";
+      }
+      
+      return null; // if any are unknown
+    }
+    
+    function pad(n, w) { n = n+''; return n.length>=w?n:new Array(w-n.length+1).join('0')+n; }
+    function formatTime(str) {
+      if (!str) return '--';
+      const parts = str.split(':');
+      if (parts.length < 2) return str;
+      //return pad(parts[0],1) + ':' + pad(parts[1],2) + (parts[2] ? ':'+pad(parts[2].split('.')[0],2) : '');
+      // commenting this out but if we want to switch to showing hours and minutes
+      const hours = parseInt(parts[0]);
+      const minutes = parseInt(parts[1]);
+      if (hours === 0) {
+        return `${minutes}m`;
+      } else {
+        const convertToMinutes = (hours * 60) + minutes;
+        return `${convertToMinutes}m`;
+      }
+      //return `${parts[0]}:${parts[1]}`;
+    }
+    function getProblemLetter(idx) {
+      return String.fromCharCode(65 + idx); // 65 = 'A'
+    }
+    
+    function getProblemName(problemId) {
+      if (!problemNamesData) {
+        return '';
+      }
+      
+      let problem = problemNamesData.find(p => p.problem_id === problemId);
+      if (problem) {
+        return problem.name;
+      }
+      
+      const firstLetter = problemId.charAt(0).toUpperCase();
+      problem = problemNamesData.find(p => p.problem_id === firstLetter);
+      if (problem) {
+        return problem.name;
+      }
+      
+      const normalizedProblemId = problemId.toLowerCase().replace(/[^a-z]/g, '');
+      for (const p of problemNamesData) {
+        const normalizedName = p.name.toLowerCase().replace(/[^a-z]/g, '');
+        if (normalizedName.includes(normalizedProblemId) || normalizedProblemId.includes(normalizedName)) {
+          return p.name;
+        }
+      }
+      
+      return '';
+    }
+    
+    function generateContestName(startDate) {
+      if (!startDate) return "Contest";
+      const date = new Date(startDate);
+      const year = date.getFullYear();
+      
+      // try to determine contest type from the date or other components?
+      // for now, using a generic format of 'Contest [year]'
+      return `Contest ${year}`;
+    }
+    
+    function getScoreboardFile() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('scoreboard') || 'scoreboard.json';
+    }
+    function getTeamsFile() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('teams') || 'teams.json';
+    }
+    function getAwardsFile() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('awards') || 'awards.json';
+    }
+    
+    function getProblemNamesFile() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('problemNames') || 'problemName.json';
+    }
+    
+    async function loadData() {
+      try {
+        const files = [
+          { name: getScoreboardFile(), resp: null },
+          { name: getTeamsFile(), resp: null },
+          { name: getAwardsFile(), resp: null },
+          { name: 'api.json', resp: null },
+          { name: getProblemNamesFile(), resp: null }
+        ];
+        const responses = await Promise.all(files.map(f => fetch(f.name)));
+        let failedFiles = [];
+        responses.forEach((resp, i) => {
+          files[i].resp = resp;
+          if (!resp.ok) failedFiles.push(files[i].name);
+        });
+        if (failedFiles.length > 0) {
+          throw new Error('Failed to load: ' + failedFiles.join(', '));
+        }
+        scoreboardData = await responses[0].json();
+        teamsData = await responses[1].json();
+        awardsData = await responses[2].json();
+        apiData = await responses[3].json();
+        problemNamesData = await responses[4].json();
+        
+        const contestName = generateContestName(scoreboardData.state?.started);
+        document.getElementById('contest-title').textContent = contestName;
+        const start = scoreboardData.state?.started ? new Date(scoreboardData.state.started) : null;
+        const end = scoreboardData.state?.ended ? new Date(scoreboardData.state.ended) : null;
+        let timesHtml = '';
+        if (start) timesHtml += `<b>Contest start:</b> ${start.toLocaleString()} &nbsp;`;
+        if (end) timesHtml += `<b>Contest end:</b> ${end.toLocaleString()}`;
+        document.getElementById('contest-times').innerHTML = timesHtml;
+        
+        renderScoreboard();
+        updateFooter();
+      } catch (error) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error').style.display = 'block';
+      }
+    }
+    function getTeamName(teamId) {
+      const team = teamsData.find(t => t.id === teamId);
+      return team ? team.name : `Team ${teamId}`;
+    }
+    
+    function getTeamDivision(teamId) {
+      const team = teamsData.find(t => t.id === teamId);
+      return team ? detectDivision(team) : null;
+    }
+    
+    function filterTeamsByDivision(rows, division) {
+      if (division === 'all') return rows;
+      return rows.filter(row => {
+        const teamDivision = getTeamDivision(row.team_id);
+        return teamDivision === division;
+      });
+    }
+    function getFirstToSolveMap(rows, problemIds) {
+      const firstToSolve = {};
+      problemIds.forEach(pid => {
+        let minTime = null;
+        let minTeam = null;
+        rows.forEach(row => {
+          const prob = row.problems.find(p => p.problem_id === pid && p.solved && p.time);
+          if (prob) {
+            const t = prob.time.split(':').map(Number);
+            const totalSeconds = t[0]*3600 + t[1]*60 + (t[2]||0);
+            if (minTime === null || totalSeconds < minTime) {
+              minTime = totalSeconds;
+              minTeam = row.team_id;
+            }
+          }
+        });
+        if (minTeam) firstToSolve[pid] = minTeam;
+      });
+      return firstToSolve;
+    }
+    function renderScoreboard() {
+      if (!scoreboardData || !teamsData) return;
+      const container = document.getElementById('scoreboard');
+      let rows = scoreboardData.rows;
+      
+      rows = filterTeamsByDivision(rows, currentDivision);
+      
+      if (rows.length === 0) {
+        container.innerHTML = '<div class="loading">No teams found for this division</div>';
+        container.style.display = 'block';
+        document.getElementById('loading').style.display = 'none';
+        return;
+      }
+      let problemIds = [];
+      if (scoreboardData.rows.length > 0 && scoreboardData.rows[0].problems) {
+        problemIds = scoreboardData.rows[0].problems.map(p => p.problem_id);
+      } else {
+        scoreboardData.rows.forEach(row => {
+          row.problems.forEach(problem => {
+            if (!problemIds.includes(problem.problem_id)) {
+              problemIds.push(problem.problem_id);
+            }
+          });
+        });
+      }
+      problemIds.sort();
+      const firstToSolve = getFirstToSolveMap(rows, problemIds);
+      let html = '<table class="scoreboard-table"><thead><tr>';
+      html += '<th>Rank</th>';
+      html += '<th>Name</th>';
+      html += '<th>Time</th>';
+      problemIds.forEach((pid, idx) => {
+        const problemName = getProblemName(pid);
+        const dataProblemId = problemName ? `data-problem-id="${pid}"` : '';
+        html += `<th class="problem-col problem-header" ${dataProblemId}>${getProblemLetter(idx)}</th>`;
+      });
+      html += '<th>Total Attempts/Solved</th>';
+      html += '</tr></thead><tbody>';
+      rows.forEach(row => {
+        html += '<tr>';
+        html += `<td class="rank">${row.rank}</td>`;
+        html += `<td class="name">${getTeamName(row.team_id)}</td>`;
+        html += `<td class="time">${formatTime(row.score.total_time)}</td>`;
+        let totalAttempts = 0, totalSolved = 0;
+        problemIds.forEach((pid, idx) => {
+          const problem = row.problems.find(p => p.problem_id === pid);
+          let cellContent = '';
+          if (problem) {
+            const attempts = (problem.num_judged || 0) + (problem.num_pending || 0);
+            if (problem.solved) {
+              const circleClass = (firstToSolve[pid] === row.team_id) ? 'circle-first-solve' : 'circle-solved';
+              cellContent = `<div class="problem-circle ${circleClass}">${attempts}</div><div class="problem-time">${formatTime(problem.time)}</div>`;
+              totalSolved++;
+            } else if (problem.num_judged > 0) {
+              cellContent = `<div class="problem-circle circle-failed">${attempts}</div><div class="problem-time">${formatTime(problem.time || '')}</div>`;
+            } else {
+              cellContent = `<div class="problem-circle circle-unsolved">-</div><div class="problem-time">--</div>`;
+            }
+            totalAttempts += attempts;
+          } else {
+            cellContent = `<div class="problem-circle circle-unsolved">-</div><div class="problem-time">--</div>`;
+          }
+          html += `<td>${cellContent}</td>`;
+        });
+        html += `<td class="total">${totalAttempts}/${totalSolved}</td>`;
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+      container.style.display = 'block';
+      document.getElementById('loading').style.display = 'none';
+      
+      setupProblemHeaderClicks();
+    }
+   
+    function updateFooter() {
+      if (!scoreboardData) return;
+      const time = new Date(scoreboardData.time);
+      document.getElementById('lastUpdated').textContent = time.toLocaleString();
+    }
+    
+    function handleDivisionClick(event) {
+      event.preventDefault();
+      const clickedLink = event.target;
+      const division = clickedLink.getAttribute('data-division');
+      
+      document.querySelectorAll('.icpc-nav a').forEach(link => link.classList.remove('active'));
+      clickedLink.classList.add('active');
+      
+      currentDivision = division;
+      renderScoreboard();
+    }
+    
+    function setupDivisionNavigation() {
+      document.querySelectorAll('.icpc-nav a').forEach(link => {
+        link.addEventListener('click', handleDivisionClick);
+      });
+    }
+    
+    function setupProblemHeaderClicks() {
+      document.querySelectorAll('.problem-header').forEach(header => {
+        header.addEventListener('click', handleProblemHeaderClick);
+      });
+    }
+    
+    function handleProblemHeaderClick(event) {
+      const problemId = event.target.getAttribute('data-problem-id');
+      if (!problemId) return;
+      
+      const problemName = getProblemName(problemId);
+      if (!problemName) return;
+      
+      const modal = document.getElementById('problemModal');
+      const modalProblemName = document.getElementById('modalProblemName');
+      modalProblemName.textContent = problemName;
+      modal.style.display = 'block';
+      
+      event.target.classList.add('clicked');
+      setTimeout(() => {
+        event.target.classList.remove('clicked');
+      }, 200);
+    }
+    
+    function setupModalClose() {
+      const modal = document.getElementById('problemModal');
+      const closeBtn = document.querySelector('.problem-modal-close');
+      
+      closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+      
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+      
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.style.display === 'block') {
+          modal.style.display = 'none';
+        }
+      });
+    }
+    
+    loadData();
+    setupDivisionNavigation();
+    setupModalClose();
+  </script>
+</body>
+</html>
