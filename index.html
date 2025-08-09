@@ -359,8 +359,87 @@
                         <button class="help-button">Contribute to Create Packages</button>
                     </div>
                 </div>
+                
+                <!-- Submission Guidelines -->
+                <div class="submission-guidelines">
+                    <h3>Submission Guidelines</h3>
+                    <div class="guidelines-content">
+                        <div class="guidelines-section">
+                            <h4>Before submitting:</h4>
+                            <ul>
+                                <li>Ensure you have permission to share the materials</li>
+                                <li>Include contest name, year, and region information</li>
+                                <li>Provide any additional context about the source</li>
+                                <li>Check if we already have the materials in our database</li>
+                            </ul>
+                        </div>
+                        <div class="guidelines-section">
+                            <h4>Preferred formats:</h4>
+                            <ul>
+                                <li>Problem statements: PDF or LaTeX source</li>
+                                <li>Test data: ZIP archives with clear file naming</li>
+                                <li>Solutions: Source code with comments</li>
+                                <li>Packages: Standard contest management system formats</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section">
+                <h2>General Questions & Contact</h2>
+                <p class="contact-description">Not sure how to help or have questions about the project?</p>
+                <p class="contact-message">We welcome any contributions, no matter how small! Whether you have materials from a single contest or want to help with data organization, your contribution is valuable to preserving ICPC history.</p>
+                <button class="contact-button">Contact Us</button>
             </section>
         </main>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <svg class="modal-icon" id="modal-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <!-- Default document icon -->
+                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 2V8H20" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 13H8" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 17H8" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 9H9H8" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h2 id="modal-title">Help with Problem Statements</h2>
+                </div>
+                <button class="modal-close" id="modal-close" aria-label="Close modal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M18 6L6 18" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 6L18 18" stroke="#64748B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-content">
+                <p id="modal-description">Help us by providing the official problem statement PDF</p>
+                
+                <div class="modal-form">
+                    <div class="form-label-container">
+                        <span class="form-label-tag" id="modal-label-tag">Problem Statements</span>
+                    </div>
+                    <select id="contest-select" class="form-select">
+                        <option value="">Choose a contest...</option>
+                    </select>
+                    
+                    <div class="modal-next-steps">
+                        <h4>What happens next:</h4>
+                        <p id="modal-next-steps-text">Select a contest above, then click the button below to send the PDF via email.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button modal-button-secondary" id="modal-cancel">Cancel</button>
+                <button class="modal-button modal-button-primary" id="modal-submit">Submit</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -964,56 +1043,55 @@
                     
                     console.log(`Processing contest: ${category.fullName} with ${category.contests.length} years`);
                     
-                    // Apply missing filter - show only contests with missing components
+                    // Apply missing filter - filter individual years that are complete
+                    let filteredContests = category.contests;
                     if (missingFilter !== 'all') {
-                        console.log(`Checking contest: ${category.fullName} for missing items (filter: ${missingFilter})`);
-                        console.log(`Contests in category:`, category.contests.length);
+                        console.log(`Filtering contest: ${category.fullName} for missing items (filter: ${missingFilter})`);
                         
-                        const hasMissingItems = category.contests.some(contest => {
+                        filteredContests = category.contests.filter(contest => {
                             let isMissing = false;
                             
                             if (missingFilter === 'missing') {
                                 // Show any contest with any missing component
-                                const stmtMissing = contest.statements !== 'TRUE';
-                                const dataMissing = contest.data !== 'TRUE';
-                                const solMissing = contest.solutions !== 'TRUE';
-                                const pkgMissing = contest.packages !== 'TRUE';
+                                const stmtMissing = !contest.statements || contest.statements.toString().toUpperCase() !== 'TRUE';
+                                const dataMissing = !contest.data || contest.data.toString().toUpperCase() !== 'TRUE';
+                                const solMissing = !contest.solutions || contest.solutions.toString().toUpperCase() !== 'TRUE';
+                                const pkgMissing = !contest.packages || contest.packages.toString().toUpperCase() !== 'TRUE';
                                 isMissing = stmtMissing || dataMissing || solMissing || pkgMissing;
                                 
                                 console.log(`   ${contest.year}: Stmt=${contest.statements}(${stmtMissing}), Data=${contest.data}(${dataMissing}), Sol=${contest.solutions}(${solMissing}), Pkg=${contest.packages}(${pkgMissing}), Missing=${isMissing}`);
                             } else if (missingFilter === 'statements') {
                                 // Show only contests missing statements
-                                isMissing = contest.statements !== 'TRUE';
+                                isMissing = !contest.statements || contest.statements.toString().toUpperCase() !== 'TRUE';
                                 console.log(`   ${contest.year}: Stmt=${contest.statements}, Missing=${isMissing}`);
                             } else if (missingFilter === 'data') {
                                 // Show only contests missing test data
-                                isMissing = contest.data !== 'TRUE';
+                                isMissing = !contest.data || contest.data.toString().toUpperCase() !== 'TRUE';
                                 console.log(`   ${contest.year}: Data=${contest.data}, Missing=${isMissing}`);
                             } else if (missingFilter === 'solutions') {
                                 // Show only contests missing solutions
-                                isMissing = contest.solutions !== 'TRUE';
+                                isMissing = !contest.solutions || contest.solutions.toString().toUpperCase() !== 'TRUE';
                                 console.log(`   ${contest.year}: Sol=${contest.solutions}, Missing=${isMissing}`);
                             } else if (missingFilter === 'packages') {
                                 // Show only contests missing packages
-                                isMissing = contest.packages !== 'TRUE';
+                                isMissing = !contest.packages || contest.packages.toString().toUpperCase() !== 'TRUE';
                                 console.log(`   ${contest.year}: Pkg=${contest.packages}, Missing=${isMissing}`);
                             }
                             
                             return isMissing;
                         });
                         
-                        console.log(`   Has missing items: ${hasMissingItems}`);
-                        
-                        if (!hasMissingItems) {
-                            console.log(`Skipping ${category.fullName} - no missing items for filter: ${missingFilter}`);
-                            return; // Skip this contest if it has no missing items
-                        } else {
-                            console.log(`Including ${category.fullName} - has missing items for filter: ${missingFilter}`);
-                        }
+                        console.log(`   Filtered from ${category.contests.length} to ${filteredContests.length} contests`);
                     }
                     
-                    const subcategoryProgress = calculateProgress(category.contests);
-                    const totalProblems = category.contests.reduce((sum, c) => sum + parseInt(c.count || 0), 0);
+                    // Skip this contest category entirely if no years remain after filtering
+                    if (filteredContests.length === 0) {
+                        console.log(`Skipping ${category.fullName} - no years remain after filtering`);
+                        return;
+                    }
+                    
+                    const subcategoryProgress = calculateProgress(filteredContests);
+                    const totalProblems = filteredContests.reduce((sum, c) => sum + parseInt(c.count || 0), 0);
 
                     const contestItem = document.createElement('li');
                     contestItem.className = 'contest-item';
@@ -1027,7 +1105,7 @@
                     contestHeader.innerHTML = `
                         <div class="contest-info">
                             <div class="contest-name">${category.fullName}</div>
-                            <div class="contest-meta">${category.contests.length} contests • ${totalProblems} problems</div>
+                            <div class="contest-meta">${filteredContests.length} contests • ${totalProblems} problems</div>
                         </div>
                         <div class="contest-progress">
                             <div class="progress-badges">
@@ -1044,8 +1122,8 @@
                     const yearsList = document.createElement('ul');
                     yearsList.className = 'years-list';
 
-                    // Add individual year items
-                    category.contests.forEach(contest => {
+                    // Add individual year items (using filtered contests)
+                    filteredContests.forEach(contest => {
                         const yearItem = document.createElement('li');
                         yearItem.className = 'year-item';
 
@@ -1150,7 +1228,298 @@
                 // Rebuild the tree with filters applied
                 buildContestTreeWithFilters(missingFilter, regionFilter);
             }
+
+            // Scroll-based navigation highlighting
+            function updateActiveNavigation() {
+                const sections = [
+                    { id: 'progress', element: document.getElementById('progress') },
+                    { id: 'contributors', element: document.getElementById('contributors') },
+                    { id: 'help', element: document.getElementById('help') },
+                    { id: 'contact', element: document.getElementById('contact') }
+                ];
+                
+                const navItems = document.querySelectorAll('.nav-item');
+                const scrollPosition = window.scrollY + 100; // Offset for sticky nav
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+                
+                let activeSection = null;
+                
+                sections.forEach((section, index) => {
+                    if (section.element) {
+                        const sectionTop = section.element.offsetTop;
+                        const sectionBottom = sectionTop + section.element.offsetHeight;
+                        const isLastSection = index === sections.length - 1;
+                        
+                        // For the last section (contact), also check if we're near the bottom of the page
+                        if (isLastSection) {
+                            const isNearBottom = scrollPosition + windowHeight >= documentHeight - 50; // 50px threshold
+                            if (scrollPosition >= sectionTop || isNearBottom) {
+                                activeSection = section.id;
+                            }
+                        } else {
+                            // For other sections, use the original logic
+                            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                                activeSection = section.id;
+                            }
+                        }
+                    }
+                });
+                
+                // Update navigation items
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    const href = item.getAttribute('href');
+                    if (href && href.includes(activeSection)) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // If no section is active and we're at the top, highlight the first nav item
+                if (!activeSection && scrollPosition < 200) {
+                    navItems.forEach(item => item.classList.remove('active'));
+                    navItems[0].classList.add('active');
+                }
+            }
+
+            // Add scroll event listener
+            window.addEventListener('scroll', updateActiveNavigation);
+            
+            // Initial call to set correct active state
+            updateActiveNavigation();
+
+            // Modal functionality
+            const modalOverlay = document.getElementById('modal-overlay');
+            const modalClose = document.getElementById('modal-close');
+            const modalCancel = document.getElementById('modal-cancel');
+            const modalSubmit = document.getElementById('modal-submit');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDescription = document.getElementById('modal-description');
+            const modalLabelTag = document.getElementById('modal-label-tag');
+            const modalNextSteps = document.getElementById('modal-next-steps-text');
+            const contestSelect = document.getElementById('contest-select');
+            const modalIcon = document.getElementById('modal-icon');
+
+            // SVG icons for different submission types
+            const modalIcons = {
+                'statements': `<path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M14 2V8H20" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M16 13H8" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M16 17H8" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M10 9H9H8" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+                'data': `<path d="M8 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V16" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M15 2H21V8" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 7L17 17" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17 7L7 17" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+                'solutions': `<path d="M9 12L11 14L15 10" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                             <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+                'packages': `<path d="M20 7L12 3L4 7M20 7V17L12 21L4 17V7M20 7L12 11L4 7" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 11V21" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
+                'create-packages': `<path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M2 17L12 22L22 17" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M2 12L12 17L22 12" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                   <path d="M12 2V12" stroke="#020817" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`
+            };
+
+            // Modal configuration for different types
+            const modalConfigs = {
+                'statements': {
+                    title: 'Help with Problem Statements',
+                    description: 'Help us by providing the official problem statement PDF',
+                    label: 'Problem Statements',
+                    nextSteps: 'Select a contest above, then click the button below to send the PDF via email.',
+                    filterType: 'statements'
+                },
+                'data': {
+                    title: 'Help with Test Data',
+                    description: 'Help us by providing test cases and input/output data',
+                    label: 'Test Data',
+                    nextSteps: 'Select a contest above, then click the button below to send the test data via email.',
+                    filterType: 'data'
+                },
+                'solutions': {
+                    title: 'Help with Solutions',
+                    description: 'Help us by providing solution code and editorial explanations',
+                    label: 'Solutions',
+                    nextSteps: 'Select a contest above, then click the button below to send the solutions via email.',
+                    filterType: 'solutions'
+                },
+                'packages': {
+                    title: 'Help with Problem Packages',
+                    description: 'Help us by providing complete problem packages in standard formats',
+                    label: 'Problem Packages',
+                    nextSteps: 'Select a contest above, then click the button below to send the packages via email.',
+                    filterType: 'packages'
+                },
+                'create-packages': {
+                    title: 'Help Create Problem Packages',
+                    description: 'Help us create problem packages when we have statements, data, and solutions',
+                    label: 'Package Creation',
+                    nextSteps: 'Select a contest above, then click the button below to volunteer for package creation.',
+                    filterType: 'packages'
+                }
+            };
+
+            // Function to show modal
+            function showModal(type) {
+                const config = modalConfigs[type];
+                if (!config) return;
+
+                // Update modal content
+                modalTitle.textContent = config.title;
+                modalDescription.textContent = config.description;
+                modalLabelTag.textContent = config.label;
+                modalNextSteps.textContent = config.nextSteps;
+
+                // Update modal icon
+                if (modalIcons[type]) {
+                    modalIcon.innerHTML = modalIcons[type];
+                }
+
+                // Populate contest select with missing items
+                populateContestSelect(config.filterType);
+
+                // Show modal
+                modalOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            // Function to hide modal
+            function hideModal() {
+                modalOverlay.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+                contestSelect.value = ''; // Reset select
+            }
+
+            // Function to populate contest select with missing items
+            function populateContestSelect(filterType) {
+                // Clear existing options
+                contestSelect.innerHTML = '<option value="">Choose a contest...</option>';
+
+                // Get contests missing the specified type
+                const missingContests = [];
+                
+                console.log(`Populating contest select for filter type: ${filterType}`);
+                console.log(`Total processed data entries: ${Object.keys(processedData).length}`);
+                
+                Object.keys(processedData).forEach(key => {
+                    const contest = processedData[key];
+                    // More robust checking for TRUE values
+                    const fieldValue = contest[filterType];
+                    const isMissing = !fieldValue || fieldValue.toString().toUpperCase() !== 'TRUE';
+                    
+                    // Debug logging for specific contests
+                    if (key.includes('ecna') || key.includes('East Central')) {
+                        console.log(`Debug contest ${key}:`, {
+                            filterType: filterType,
+                            rawValue: fieldValue,
+                            valueType: typeof fieldValue,
+                            isMissing: isMissing,
+                            fullName: contest.fullName,
+                            year: contest.year
+                        });
+                    }
+                    
+                    if (isMissing) {
+                        // Include the year in the contest data
+                        missingContests.push({
+                            key: key,
+                            shortName: key.includes('_') ? key.split('_')[0] : key,
+                            fullName: contest.fullName,
+                            region: contest.region,
+                            year: contest.year
+                        });
+                    }
+                });
+
+                console.log(`Found ${missingContests.length} contests missing ${filterType}`);
+
+                // Sort by region, then by name, then by year (most recent first)
+                missingContests.sort((a, b) => {
+                    const regionOrder = { 'International': 1, 'North America': 2, 'Europe': 3 };
+                    const regionDiff = (regionOrder[a.region] || 4) - (regionOrder[b.region] || 4);
+                    if (regionDiff !== 0) return regionDiff;
+                    
+                    const nameDiff = a.fullName.localeCompare(b.fullName);
+                    if (nameDiff !== 0) return nameDiff;
+                    
+                    return b.year - a.year; // Most recent year first
+                });
+
+                // Add options to select
+                missingContests.forEach(contest => {
+                    const option = document.createElement('option');
+                    option.value = contest.key; // Use the full key (including year) as value
+                    option.textContent = `${contest.fullName} ${contest.year} - ${contest.region}`;
+                    contestSelect.appendChild(option);
+                });
+                
+                console.log(`Added ${missingContests.length} options to select dropdown`);
+            }
+
+            // Event listeners for modal
+            modalClose.addEventListener('click', hideModal);
+            modalCancel.addEventListener('click', hideModal);
+            
+            // Close modal when clicking overlay
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    hideModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modalOverlay.classList.contains('show')) {
+                    hideModal();
+                }
+            });
+
+            // Submit button functionality
+            modalSubmit.addEventListener('click', function() {
+                const selectedContestKey = contestSelect.value;
+                if (!selectedContestKey) {
+                    alert('Please select a contest first.');
+                    return;
+                }
+                
+                // Get the contest data for display
+                const contest = processedData[selectedContestKey];
+                const displayName = contest ? `${contest.fullName} ${contest.year} - ${contest.region}` : selectedContestKey;
+                
+                // Here you would typically send the data to your backend
+                // For now, we'll just show a success message
+                alert(`Thank you! Your submission for ${displayName} has been received. We'll contact you via email with next steps.`);
+                hideModal();
+            });
+
+            // Add click event listeners to help buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('help-button')) {
+                    const buttonText = e.target.textContent.toLowerCase();
+                    
+                    if (buttonText.includes('problem statements')) {
+                        showModal('statements');
+                    } else if (buttonText.includes('test data')) {
+                        showModal('data');
+                    } else if (buttonText.includes('solutions')) {
+                        showModal('solutions');
+                    } else if (buttonText.includes('packages') && !buttonText.includes('create')) {
+                        showModal('packages');
+                    } else if (buttonText.includes('create packages')) {
+                        showModal('create-packages');
+                    }
+                }
+            });
         });
     </script>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-title">2025 ICPC Problem Archive Project - Preserving Programming Contest History</p>
+            <p class="footer-disclaimer">This project is not officially affiliated with ICPC Global but aims to support the community</p>
+        </div>
+    </footer>
 </body>
 </html> 
