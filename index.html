@@ -391,7 +391,7 @@
                 <h2>General Questions & Contact</h2>
                 <p class="contact-description">Not sure how to help or have questions about the project?</p>
                 <p class="contact-message">We welcome any contributions, no matter how small! Whether you have materials from a single contest or want to help with data organization, your contribution is valuable to preserving ICPC history.</p>
-                <button class="contact-button">Contact Us</button>
+                <a href="mailto:fredrik@icpc.global" class="contact-button">Contact Us</a>
             </section>
         </main>
     </div>
@@ -422,12 +422,18 @@
                 <p id="modal-description">Help us by providing the official problem statement PDF</p>
                 
                 <div class="modal-form">
-                    <div class="form-label-container">
+                    <div class="form-label-container" id="form-label-container" style="display: none;">
                         <span class="form-label-tag" id="modal-label-tag">Problem Statements</span>
                     </div>
                     <select id="contest-select" class="form-select">
                         <option value="">Choose a contest...</option>
                     </select>
+                    
+                    <div class="github-username-field" id="github-username-field" style="display: none;">
+                        <label for="github-username">GitHub Username:</label>
+                        <input type="text" id="github-username" class="form-input" placeholder="Enter your GitHub username" />
+                        <div class="validation-message" id="github-validation-message"></div>
+                    </div>
                     
                     <div class="modal-next-steps">
                         <h4>What happens next:</h4>
@@ -851,23 +857,28 @@
                 console.log('Combining data...');
                 statusData.forEach(row => {
                     const shortName = row['short-name'];
-                    if (contestList[shortName]) {
-                        // Create unique key for each year
-                        const uniqueKey = `${shortName}_${row.year}`;
-                        processedData[uniqueKey] = {
-                            ...contestList[shortName],
-                            year: parseInt(row.year),
-                            count: parseInt(row.count),
-                            statements: row.statements,
-                            data: row.data,
-                            solutions: row.solutions,
-                            packages: row.packages
-                        };
-                        
-                        // Debug: Log some sample data
-                        if (uniqueKey.includes('wf_2011') || uniqueKey.includes('seerc_2024')) {
-                            console.log(`Sample data for ${uniqueKey}:`, processedData[uniqueKey]);
-                        }
+                    const year = parseInt(row.year);
+                    
+                    // Filter out invalid data (empty rows, NaN values, etc.)
+                    if (!shortName || !shortName.trim() || isNaN(year) || !contestList[shortName]) {
+                        return; // Skip this row
+                    }
+                    
+                    // Create unique key for each year
+                    const uniqueKey = `${shortName}_${year}`;
+                    processedData[uniqueKey] = {
+                        ...contestList[shortName],
+                        year: year,
+                        count: parseInt(row.count) || 0,
+                        statements: row.statements,
+                        data: row.data,
+                        solutions: row.solutions,
+                        packages: row.packages
+                    };
+                    
+                    // Debug: Log some sample data
+                    if (uniqueKey.includes('wf_2011') || uniqueKey.includes('seerc_2024')) {
+                        console.log(`Sample data for ${uniqueKey}:`, processedData[uniqueKey]);
                     }
                 });
                 console.log('Data combined:', Object.keys(processedData).length, 'processed entries');
@@ -965,6 +976,15 @@
             const regions = {};
             Object.keys(processedData).forEach(key => {
                 const contest = processedData[key];
+                
+                // Additional safety check for invalid data
+                if (!contest || !contest.region || !contest.fullName || 
+                    isNaN(contest.year) || contest.fullName === 'NaN' || 
+                    contest.region === 'NaN' || contest.fullName.trim() === '' || 
+                    contest.region.trim() === '') {
+                    return; // Skip this contest
+                }
+                
                 const region = contest.region;
                 
                 // Apply region filter
@@ -1324,38 +1344,33 @@
             // Modal configuration for different types
             const modalConfigs = {
                 'statements': {
-                    title: 'Help with Problem Statements',
+                    title: 'Submit Problem Statements',
                     description: 'Help us by providing the official problem statement PDF',
-                    label: 'Problem Statements',
-                    nextSteps: 'Select a contest above, then click the button below to send the PDF via email.',
+                    nextSteps: 'Select a contest (or specific year) above, then click the button below to send the PDF via email. One PDF per contest.',
                     filterType: 'statements'
                 },
                 'data': {
-                    title: 'Help with Test Data',
+                    title: 'Submit Test Data',
                     description: 'Help us by providing test cases and input/output data',
-                    label: 'Test Data',
-                    nextSteps: 'Select a contest above, then click the button below to send the test data via email.',
+                    nextSteps: 'Select a contest above, then click the button below to request access to a GitHub repository. When you get access, add the data to the repository.',
                     filterType: 'data'
                 },
                 'solutions': {
                     title: 'Help with Solutions',
                     description: 'Help us by providing solution code and editorial explanations',
-                    label: 'Solutions',
-                    nextSteps: 'Select a contest above, then click the button below to send the solutions via email.',
+                    nextSteps: 'Select a contest (or specific year) above, then click the button below to send the solutions via email.',
                     filterType: 'solutions'
                 },
                 'packages': {
                     title: 'Help with Problem Packages',
                     description: 'Help us by providing complete problem packages in standard formats',
-                    label: 'Problem Packages',
-                    nextSteps: 'Select a contest above, then click the button below to send the packages via email.',
+                    nextSteps: 'Select a contest (or specific year) above, then click the button below to send the packages via email.',
                     filterType: 'packages'
                 },
                 'create-packages': {
                     title: 'Help Create Problem Packages',
                     description: 'Help us create problem packages when we have statements, data, and solutions',
-                    label: 'Package Creation',
-                    nextSteps: 'Select a contest above, then click the button below to volunteer for package creation.',
+                    nextSteps: 'Select a contest (or specific year) above, then click the button below to volunteer for package creation.',
                     filterType: 'packages'
                 }
             };
@@ -1368,8 +1383,16 @@
                 // Update modal content
                 modalTitle.textContent = config.title;
                 modalDescription.textContent = config.description;
-                modalLabelTag.textContent = config.label;
                 modalNextSteps.textContent = config.nextSteps;
+
+                
+                // Show/hide GitHub username field for test data modal
+                const githubField = document.getElementById('github-username-field');
+                if (type === 'data') {
+                    githubField.style.display = 'block';
+                } else {
+                    githubField.style.display = 'none';
+                }
 
                 // Update modal icon
                 if (modalIcons[type]) {
@@ -1378,6 +1401,10 @@
 
                 // Populate contest select with missing items
                 populateContestSelect(config.filterType);
+
+                // Disable submit button initially
+                const submitButton = document.getElementById('modal-submit');
+                submitButton.disabled = true;
 
                 // Show modal
                 modalOverlay.classList.add('show');
@@ -1389,36 +1416,66 @@
                 modalOverlay.classList.remove('show');
                 document.body.style.overflow = ''; // Restore scrolling
                 contestSelect.value = ''; // Reset select
+                
+                // Reset GitHub username field
+                const githubUsername = document.getElementById('github-username');
+                if (githubUsername) {
+                    githubUsername.value = '';
+                    githubUsername.classList.remove('valid', 'invalid');
+                    const validationMessage = document.getElementById('github-validation-message');
+                    if (validationMessage) {
+                        validationMessage.textContent = '';
+                        validationMessage.className = 'validation-message';
+                    }
+                }
+                
+                // Disable submit button when hiding modal
+                const submitButton = document.getElementById('modal-submit');
+                submitButton.disabled = true;
             }
 
             // Function to populate contest select with missing items
             function populateContestSelect(filterType) {
                 // Clear existing options
                 contestSelect.innerHTML = '<option value="">Choose a contest...</option>';
+                
+                // Disable submit button when populating
+                const submitButton = document.getElementById('modal-submit');
+                submitButton.disabled = true;
+                
+                // Reset GitHub username field when populating
+                const githubUsername = document.getElementById('github-username');
+                if (githubUsername) {
+                    githubUsername.value = '';
+                    githubUsername.classList.remove('valid', 'invalid');
+                    const validationMessage = document.getElementById('github-validation-message');
+                    if (validationMessage) {
+                        validationMessage.textContent = '';
+                        validationMessage.className = 'validation-message';
+                    }
+                }
 
                 // Get contests missing the specified type
                 const missingContests = [];
+                const contestGroups = {};
                 
                 console.log(`Populating contest select for filter type: ${filterType}`);
                 console.log(`Total processed data entries: ${Object.keys(processedData).length}`);
                 
                 Object.keys(processedData).forEach(key => {
                     const contest = processedData[key];
+                    
+                    // Filter out contests with invalid data (NaN, undefined, empty strings)
+                    if (!contest || !contest.fullName || !contest.region || 
+                        isNaN(contest.year) || contest.fullName === 'NaN' || 
+                        contest.region === 'NaN' || contest.fullName.trim() === '' || 
+                        contest.region.trim() === '') {
+                        return; // Skip this contest
+                    }
+                    
                     // More robust checking for TRUE values
                     const fieldValue = contest[filterType];
                     const isMissing = !fieldValue || fieldValue.toString().toUpperCase() !== 'TRUE';
-                    
-                    // Debug logging for specific contests
-                    if (key.includes('ecna') || key.includes('East Central')) {
-                        console.log(`Debug contest ${key}:`, {
-                            filterType: filterType,
-                            rawValue: fieldValue,
-                            valueType: typeof fieldValue,
-                            isMissing: isMissing,
-                            fullName: contest.fullName,
-                            year: contest.year
-                        });
-                    }
                     
                     if (isMissing) {
                         // Include the year in the contest data
@@ -1429,6 +1486,19 @@
                             region: contest.region,
                             year: contest.year
                         });
+                        
+                        // Group contests by name for overall contest options
+                        const contestName = contest.fullName;
+                        if (!contestGroups[contestName]) {
+                            contestGroups[contestName] = {
+                                fullName: contest.fullName,
+                                region: contest.region,
+                                years: [],
+                                missingYears: []
+                            };
+                        }
+                        contestGroups[contestName].years.push(contest.year);
+                        contestGroups[contestName].missingYears.push(contest.year);
                     }
                 });
 
@@ -1446,20 +1516,89 @@
                     return b.year - a.year; // Most recent year first
                 });
 
-                // Add options to select
-                missingContests.forEach(contest => {
+                // Add overall contest options first (grouped by name)
+                Object.values(contestGroups).forEach(group => {
                     const option = document.createElement('option');
-                    option.value = contest.key; // Use the full key (including year) as value
-                    option.textContent = `${contest.fullName} ${contest.year} - ${contest.region}`;
+                    option.value = `group_${group.fullName}_${group.region}`;
+                    option.textContent = `${group.fullName} - ${group.region}`;
+                    option.className = 'contest-group-header'; // Add class for styling
                     contestSelect.appendChild(option);
+                    
+                    // Add individual year options under this contest
+                    group.missingYears.sort((a, b) => b - a).forEach(year => {
+                        const yearContest = missingContests.find(c => c.fullName === group.fullName && c.year === year);
+                        if (yearContest) {
+                            const option = document.createElement('option');
+                            option.value = yearContest.key;
+                            option.textContent = `${yearContest.fullName} ${yearContest.year} - ${yearContest.region}`;
+                            contestSelect.appendChild(option);
+                        }
+                    });
                 });
                 
-                console.log(`Added ${missingContests.length} options to select dropdown`);
+                console.log(`Added ${Object.keys(contestGroups).length} contest groups and ${missingContests.length} individual year options to select dropdown`);
             }
 
             // Event listeners for modal
             modalClose.addEventListener('click', hideModal);
             modalCancel.addEventListener('click', hideModal);
+            
+            // Contest select change event to enable/disable submit button
+            contestSelect.addEventListener('change', function() {
+                validateForm();
+            });
+            
+            // GitHub username input event for validation
+            document.addEventListener('input', function(e) {
+                if (e.target.id === 'github-username') {
+                    validateForm();
+                    validateGitHubUsername(e.target.value);
+                }
+            });
+            
+            // Function to validate form and enable/disable submit button
+            function validateForm() {
+                const submitButton = document.getElementById('modal-submit');
+                const contestSelected = contestSelect.value && contestSelect.value.trim() !== '';
+                
+                // For test data modal, also check GitHub username
+                const modalTitle = document.getElementById('modal-title').textContent;
+                if (modalTitle === 'Submit Test Data') {
+                    const githubUsername = document.getElementById('github-username').value.trim();
+                    const githubValid = githubUsername && githubUsername.length > 0;
+                    submitButton.disabled = !(contestSelected && githubValid);
+                } else {
+                    submitButton.disabled = !contestSelected;
+                }
+            }
+            
+            // Function to validate GitHub username
+            function validateGitHubUsername(username) {
+                const validationMessage = document.getElementById('github-validation-message');
+                const input = document.getElementById('github-username');
+                
+                if (!username || username.trim() === '') {
+                    validationMessage.textContent = '';
+                    input.classList.remove('valid', 'invalid');
+                    return;
+                }
+                
+                // GitHub username validation rules
+                const githubRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+                const isValid = githubRegex.test(username);
+                
+                if (isValid) {
+                    validationMessage.textContent = '✓ Valid GitHub username';
+                    validationMessage.className = 'validation-message valid';
+                    input.classList.remove('invalid');
+                    input.classList.add('valid');
+                } else {
+                    validationMessage.textContent = '✗ Invalid GitHub username format';
+                    validationMessage.className = 'validation-message invalid';
+                    input.classList.remove('valid');
+                    input.classList.add('invalid');
+                }
+            }
             
             // Close modal when clicking overlay
             modalOverlay.addEventListener('click', function(e) {
@@ -1483,13 +1622,57 @@
                     return;
                 }
                 
-                // Get the contest data for display
-                const contest = processedData[selectedContestKey];
-                const displayName = contest ? `${contest.fullName} ${contest.year} - ${contest.region}` : selectedContestKey;
+                let displayName = '';
+                let isGroupSelection = false;
                 
-                // Here you would typically send the data to your backend
-                // For now, we'll just show a success message
-                alert(`Thank you! Your submission for ${displayName} has been received. We'll contact you via email with next steps.`);
+                // Handle group selections vs individual year selections
+                if (selectedContestKey.startsWith('group_')) {
+                    isGroupSelection = true;
+                    // Extract contest name and region from group key
+                    const groupParts = selectedContestKey.replace('group_', '').split('_');
+                    const contestName = groupParts[0];
+                    const region = groupParts.slice(1).join('_'); // Handle regions with underscores
+                    
+                    // Find the original contest data to get the proper display name
+                    const originalContest = Object.values(processedData).find(c => 
+                        c.fullName === contestName && c.region === region
+                    );
+                    
+                    if (originalContest) {
+                        displayName = `${originalContest.fullName} - ${originalContest.region}`;
+                    } else {
+                        displayName = `${contestName} - ${region}`;
+                    }
+                } else {
+                    // Get the contest data for individual year selections
+                    const contest = processedData[selectedContestKey];
+                    displayName = contest ? `${contest.fullName} ${contest.year} - ${contest.region}` : selectedContestKey;
+                }
+                
+                // Check if this is the statements modal and handle mailto
+                const modalTitle = document.getElementById('modal-title').textContent;
+                if (modalTitle === 'Submit Problem Statements') {
+                    // Create mailto link for problem statements
+                    const subject = `Problem Statements for ${displayName}`;
+                    const body = isGroupSelection ? 
+                        '[Please attach the problem statement PDFs to this email]' : 
+                        '[Please attach the problem statement PDF to this email]';
+                    
+                    const mailtoLink = `mailto:fredrik@icpc.global?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.open(mailtoLink);
+                } else if (modalTitle === 'Submit Test Data') {
+                    // Create mailto link for test data
+                    const githubUsername = document.getElementById('github-username').value.trim();
+                    const subject = `Test Data for ${displayName}`;
+                    const body = `GitHub username: ${githubUsername}`;
+                    
+                    const mailtoLink = `mailto:fredrik@icpc.global?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.open(mailtoLink);
+                } else {
+                    // For other modals, show the original success message
+                    alert(`Thank you! Your submission for ${displayName} has been received. We'll contact you via email with next steps.`);
+                }
+                
                 hideModal();
             });
 
