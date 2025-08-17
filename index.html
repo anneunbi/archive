@@ -1356,15 +1356,15 @@
                     filterType: 'data'
                 },
                 'solutions': {
-                    title: 'Help with Solutions',
+                    title: 'Submit Solutions',
                     description: 'Help us by providing solution code and editorial explanations',
-                    nextSteps: 'Select a contest (or specific year) above, then click the button below to send the solutions via email.',
+                    nextSteps: 'Select a contest above, then click the button below to request access to a GitHub repository. When you get access, add the solutions to the repository.',
                     filterType: 'solutions'
                 },
                 'packages': {
-                    title: 'Help with Problem Packages',
+                    title: 'Submit Problem Packages',
                     description: 'Help us by providing complete problem packages in standard formats',
-                    nextSteps: 'Select a contest (or specific year) above, then click the button below to send the packages via email.',
+                    nextSteps: 'Select a contest above, then click the button below to request access to a GitHub repository. When you get access, add the packages to the repository.',
                     filterType: 'packages'
                 },
                 'create-packages': {
@@ -1386,9 +1386,9 @@
                 modalNextSteps.textContent = config.nextSteps;
 
                 
-                // Show/hide GitHub username field for test data modal
+                // Show/hide GitHub username field for test data and packages modals
                 const githubField = document.getElementById('github-username-field');
-                if (type === 'data') {
+                if (type === 'data' || type === 'packages' || type === 'solutions') {
                     githubField.style.display = 'block';
                 } else {
                     githubField.style.display = 'none';
@@ -1543,16 +1543,24 @@
             modalClose.addEventListener('click', hideModal);
             modalCancel.addEventListener('click', hideModal);
             
+
+            
             // Contest select change event to enable/disable submit button
             contestSelect.addEventListener('change', function() {
                 validateForm();
             });
             
-            // GitHub username input event for validation
+            // GitHub username input event for validation with debouncing
+            let validationTimeout;
             document.addEventListener('input', function(e) {
                 if (e.target.id === 'github-username') {
+                    clearTimeout(validationTimeout);
                     validateForm();
-                    validateGitHubUsername(e.target.value);
+                    
+                    // Debounce API calls to avoid too many requests
+                    validationTimeout = setTimeout(() => {
+                        validateGitHubUsername(e.target.value);
+                    }, 500);
                 }
             });
             
@@ -1561,19 +1569,20 @@
                 const submitButton = document.getElementById('modal-submit');
                 const contestSelected = contestSelect.value && contestSelect.value.trim() !== '';
                 
-                // For test data modal, also check GitHub username
+                // For test data and packages modals, also check GitHub username
                 const modalTitle = document.getElementById('modal-title').textContent;
-                if (modalTitle === 'Submit Test Data') {
+                if (modalTitle === 'Submit Test Data' || modalTitle === 'Submit Problem Packages') {
                     const githubUsername = document.getElementById('github-username').value.trim();
-                    const githubValid = githubUsername && githubUsername.length > 0;
+                    const githubUsernameInput = document.getElementById('github-username');
+                    const githubValid = githubUsername && githubUsername.length > 0 && githubUsernameInput.classList.contains('valid');
                     submitButton.disabled = !(contestSelected && githubValid);
                 } else {
                     submitButton.disabled = !contestSelected;
                 }
             }
             
-            // Function to validate GitHub username
-            function validateGitHubUsername(username) {
+            // Function to validate GitHub username using GitHub API
+            async function validateGitHubUsername(username) {
                 const validationMessage = document.getElementById('github-validation-message');
                 const input = document.getElementById('github-username');
                 
@@ -1583,21 +1592,31 @@
                     return;
                 }
                 
-                // GitHub username validation rules
-                const githubRegex = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
-                const isValid = githubRegex.test(username);
-                
-                if (isValid) {
-                    validationMessage.textContent = '✓ Valid GitHub username';
-                    validationMessage.className = 'validation-message valid';
-                    input.classList.remove('invalid');
-                    input.classList.add('valid');
-                } else {
-                    validationMessage.textContent = '✗ Invalid GitHub username format';
-                    validationMessage.className = 'validation-message invalid';
-                    input.classList.remove('valid');
-                    input.classList.add('invalid');
+                try {
+                    const response = await fetch(`https://api.github.com/users/${username}`);
+                    
+                    if (response.ok) {
+                        input.classList.remove('invalid');
+                        input.classList.add('valid');
+                        validationMessage.textContent = '✓ Valid GitHub username';
+                        validationMessage.className = 'validation-message valid';
+                    } else if (response.status === 404) {
+                        input.classList.remove('valid');
+                        input.classList.add('invalid');
+                        validationMessage.textContent = '✗ Username not found on GitHub';
+                        validationMessage.className = 'validation-message invalid';
+                    } else {
+                        input.classList.remove('valid', 'invalid');
+                        validationMessage.textContent = '⚠ Unable to validate username';
+                        validationMessage.className = 'validation-message';
+                    }
+                } catch (error) {
+                    input.classList.remove('valid', 'invalid');
+                    validationMessage.textContent = '⚠ Network error - unable to validate';
+                    validationMessage.className = 'validation-message';
                 }
+                
+                validateForm();
             }
             
             // Close modal when clicking overlay
@@ -1664,6 +1683,22 @@
                     // Create mailto link for test data
                     const githubUsername = document.getElementById('github-username').value.trim();
                     const subject = `Test Data for ${displayName}`;
+                    const body = `GitHub username: ${githubUsername}`;
+                    
+                    const mailtoLink = `mailto:fredrik@icpc.global?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.open(mailtoLink);
+                } else if (modalTitle === 'Submit Solutions') {
+                    // Create mailto link for problem packages
+                    const githubUsername = document.getElementById('github-username').value.trim();
+                    const subject = `Solutions for ${displayName}`;
+                    const body = `GitHub username: ${githubUsername}`;
+                    
+                    const mailtoLink = `mailto:fredrik@icpc.global?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.open(mailtoLink);
+                } else if (modalTitle === 'Submit Problem Packages') {
+                    // Create mailto link for problem packages
+                    const githubUsername = document.getElementById('github-username').value.trim();
+                    const subject = `Problem Packages for ${displayName}`;
                     const body = `GitHub username: ${githubUsername}`;
                     
                     const mailtoLink = `mailto:fredrik@icpc.global?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
