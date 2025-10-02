@@ -1,0 +1,147 @@
+name: Clean TSVs
+
+on:
+  push:
+    paths:
+      - "**/*.tsv"
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "TSV file or glob to clean (defaults to changed *.tsv)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select TSV files
+        id: select
+        run: |
+          set -euo pipefail
+          if [ -n "${{ github.event.inputs.path }}" ]; then
+            FILES=$(printf "%s\n" ${{ github.event.inputs.path }} | xargs -I{} bash -lc 'ls -1 {} 2>/dev/null || true')
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            BEFORE="${{ github.event.before }}"
+            if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              FILES=$(git ls-files '*.tsv')
+            else
+              FILES=$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- '*.tsv')
+            fi
+          else
+            FILES=$(git ls-files '*.tsv')
+          fi
+          printf "%s" "$FILES" > files.txt
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          cat files.txt >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Clean TSVs
+        if: steps.select.outputs.files != ''
+        run: |
+          set -euo pipefail
+          python - << 'PY'
+import csv, sys, pathlib, re
+from pathlib import Path
+
+def norm_header(h):
+    if h is None: return ""
+    h = h.strip().lower()
+    h = h.replace("_","-").replace("  "," ")
+    h = re.sub(r"\s+", "-", h)
+    return h
+
+def clean_val(v):
+    if v is None: return ""
+    v = v.strip()
+    v = re.sub(r"\s+", " ", v)
+    return v
+
+target_cols = ["region-name","full-name","short-name"]
+changed = False
+
+files = Path("files.txt").read_text().splitlines()
+for f in files:
+    p = Path(f)
+    if not p.exists() or p.is_dir(): 
+        continue
+    with p.open("r", encoding="utf-8", newline="") as fh:
+        sniffer = csv.Sniffer()
+        sample = fh.read(4096)
+        fh.seek(0)
+        dialect = csv.excel_tab
+        reader = csv.reader(fh, dialect=dialect)
+        rows = list(reader)
+
+    if not rows:
+        continue
+
+    raw_headers = rows[0]
+    header_map = {norm_header(h): i for i, h in enumerate(raw_headers)}
+    out_rows = []
+
+    if set(target_cols).issubset(header_map.keys()):
+        data_rows = rows[1:]
+    else:
+        # attempt fuzzy mapping
+        aliases = {
+            "region": "region-name",
+            "regionname": "region-name",
+            "fullname": "full-name",
+            "name": "full-name",
+            "shortname": "short-name",
+            "short": "short-name",
+        }
+        mapped = {}
+        for k, idx in header_map.items():
+            k2 = aliases.get(k, k)
+            if k2 in target_cols and k2 not in mapped:
+                mapped[k2] = idx
+        header_map = mapped
+        data_rows = rows[1:]
+
+    for r in data_rows:
+        row = []
+        for col in target_cols:
+            idx = header_map.get(col, None)
+            val = r[idx] if (idx is not None and idx < len(r)) else ""
+            row.append(clean_val(val))
+        # drop completely empty rows
+        if any(x != "" for x in row):
+            out_rows.append(row)
+
+    out_text = []
+    out = [target_cols] + out_rows
+    new_content = ""
+    from io import StringIO
+    sio = StringIO()
+    w = csv.writer(sio, dialect=csv.excel_tab, lineterminator="\n")
+    for rr in out:
+        w.writerow(rr)
+    new_content = sio.getvalue()
+
+    old_content = p.read_text(encoding="utf-8")
+    if new_content != old_content:
+        p.write_text(new_content, encoding="utf-8")
+        changed = True
+
+if not changed:
+    sys.exit(0)
+PY
+
+      - name: Commit and push changes
+        if: steps.select.outputs.files != '' && success()
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore(tsv): normalize headers and whitespace for TSV files"
+          git push
