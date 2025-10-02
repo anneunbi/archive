@@ -24,6 +24,8 @@ jobs:
         id: select
         run: |
           set -euo pipefail
+
+          # gather candidate files
           if [ -n "${{ github.event.inputs.path }}" ]; then
             FILES=$(printf "%s\n" "${{ github.event.inputs.path }}" | xargs -I{} bash -lc 'ls -1 {} 2>/dev/null || true')
           elif [ "${{ github.event_name }}" = "push" ]; then
@@ -36,15 +38,31 @@ jobs:
           else
             FILES=$(git ls-files '*.tsv')
           fi
-          printf "%s" "$FILES" > files.txt
-          echo "files<<EOF" >> "$GITHUB_OUTPUT"
-          cat files.txt >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          # write newline-delimited list for the next step
+          printf "%s\n" ${FILES:-} | sed '/^$/d' > files.txt || true
+
+          # set a simple boolean output (avoid multiline GITHUB_OUTPUT blocks)
+          if [ -s files.txt ]; then
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Show selected files
+        run: |
+          if [ -s files.txt ]; then
+            echo "TSV files to process:"
+            cat files.txt
+          else
+            echo "No TSV files selected."
+          fi
 
       - name: Clean TSVs
-        if: ${{ steps.select.outputs.files != '' }}
+        if: ${{ steps.select.outputs.has_files == 'true' }}
         run: |
           set -euo pipefail
+          # write embedded python to file safely (no YAML/heredoc delimiter issues)
           sed -E 's/^\s{10}//' > clean_tsvs.py <<'PY'
           import csv, sys, re
           from pathlib import Path
@@ -68,11 +86,12 @@ jobs:
           target_cols = ["region-name", "full-name", "short-name"]
           changed = False
 
-          files = Path("files.txt").read_text().splitlines()
-          for f in files:
+          file_list = Path("files.txt").read_text(encoding="utf-8").splitlines()
+          for f in file_list:
               p = Path(f)
               if not p.exists() or p.is_dir():
                   continue
+
               with p.open("r", encoding="utf-8", newline="") as fh:
                   reader = csv.reader(fh, dialect=csv.excel_tab)
                   rows = list(reader)
@@ -106,17 +125,17 @@ jobs:
               for r in data_rows:
                   row = []
                   for col in target_cols:
-                      idx = header_map.get(col, None)
+                      idx = header_map.get(col)
                       val = r[idx] if (idx is not None and idx < len(r)) else ""
                       row.append(clean_val(val))
                   if any(x != "" for x in row):
                       out_rows.append(row)
 
-              out = [target_cols] + out_rows
+              output = [target_cols] + out_rows
               sio = StringIO()
-              w = csv.writer(sio, dialect=csv.excel_tab, lineterminator="\n")
-              for rr in out:
-                  w.writerow(rr)
+              writer = csv.writer(sio, dialect=csv.excel_tab, lineterminator="\n")
+              for rr in output:
+                  writer.writerow(rr)
               new_content = sio.getvalue()
 
               old_content = p.read_text(encoding="utf-8")
@@ -125,14 +144,17 @@ jobs:
                   changed = True
 
           if not changed:
-              sys.exit(0)
+              # no diff -> return 0 so the job keeps going, but print a note
+              print("No changes needed.")
           PY
           python clean_tsvs.py
 
       - name: Commit and push changes
-        if: ${{ steps.select.outputs.files != '' && success() }}
+        if: ${{ steps.select.outputs.has_files == 'true' }}
         run: |
+          set -euo pipefail
           if git diff --quiet; then
+            echo "Nothing to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
