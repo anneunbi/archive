@@ -63,7 +63,7 @@ jobs:
         run: |
           set -euo pipefail
           # write embedded python to file safely (no YAML/heredoc delimiter issues)
-          sed -E 's/^\s{10}//' > clean_tsvs.py <<'PY'
+          awk '{sub(/^[[:space:]]{10}/,"")}1' > clean_tsvs.py <<'PY'
           import csv, sys, re
           from pathlib import Path
           from io import StringIO
