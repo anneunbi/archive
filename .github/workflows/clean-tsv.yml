@@ -1,9 +1,10 @@
 name: Clean TSV File
 
 on:
+  workflow_dispatch:
   push:
     paths:
-      - 'data/input.tsv'
+      - '**.tsv'
 
 jobs:
   clean-tsv:
