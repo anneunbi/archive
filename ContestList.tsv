@@ -202,4 +202,209 @@ Asia Pacific	South Pacific Central Division	south-pacific-central
 Asia Pacific	South Pacific Eastern Division	south-pacific-east
 Asia Pacific	South Pacific Independent Regional Contest Divisional	south-pacific-division
 Asia Pacific	New Zealand Programming Contest	nzpc
+=======
+region-name	full-name	short-name
+International	World Finals	wf
+Europe	Europe Championship	euc
+Europe	European Regional Contest	erc
+Europe	Western European Regional Contest	werc
+Europe	Northwestern European Regional Contest	nwerc
+Europe	Nordic Collegiate Programming Contest	ncpc
+Europe	Benelux Algorithm Programming Contest	benelux
+Europe	BAPC Preliminaries	benelux-prel
+Europe	German Collegiate Programming Contest	germany
+Europe	UK & Ireland Programming Contest	ukiepc
+Europe	Southwestern Europe Regional Contest	swerc
+Europe	Mid-Central European Programming Contest	mcerc
+Europe	Central Europe Regional Contest	cerc
+Europe	CTU Open	ctuo
+Europe	Hungarian Progamming Contest	hungary
+Europe	Polish Collegiate Programming Contest	poland
+Europe	Croatian Progamming Contest	croatia
+Europe	Slovenian Programming Contest	slovenia
+Europe	Southeastern Europe Regional Contest	seerc
+Europe	All-Ukrainian Collegiate Programming Contest	ukraine
+Europe	Turkey Programming Contest	turkey
+Europe	Romania Programming Contest	romania
+Europe	Bulgarian Collegiate Programming Contest	bulgaria
+Europe	Cyprus Collegiate Programming Contest	cyprus
+Europe	Greece Programming Contest	greece
+North America	North America Championship	nac
+North America	North America Division Championships	nadc
+North America	North American Invitational Programming Contest	naipc
+North America	North America Qualifyer	naq
+North America	North America South Division	south-na
+North America	North America East Division	east-na
+North America	North America Central Division	central-na
+North America	North America West Division	west-na
+North America	East Central NA Regional Contest	ecna
+North America	Greater NY Regional Contest	gny
+North America	Mid-Atlantic USA Regional Contest	mausa
+North America	Mid-Central USA Regional Contest	mcpc
+North America	North Central NA Regional Contest	ncna
+North America	Northeast North America Regional Contest	nena
+North America	BOSPRE (Brown/Tufts) Preliminary Contest	bospre-prel
+North America	Oswego Preliminary Contest	oswego-prel
+North America	WNEC Preliminary	wnec-prel
+North America	McGill Preliminary Contest	mcgill-prel
+North America	Universite de Moncton APICS Contest	moncton-prel
+North America	Potsdam Preliminary Contest	potsdam-prel
+North America	Dalhousie University APICS Contest	dalhousie-prel
+North America	Fredonia Preliminary Contest	fredonia-prel
+North America	Saint Mary's APICS Contest	saint-mary-prel
+North America	Clarkson Preliminary Contest	clarkson-prel
+North America	Saint Francis Xavier's APICS Contest	sfx-prel
+North America	Pacific Northwest Regional Contest	pacnw
+North America	Rocky Mountain Regional Contest	rmc
+North America	Alberta Collegiate Programming Contest	alberta
+North America	Lethbridge Collegiate Programming Contest	lethbridge
+North America	South Central USA Regional Contest	scusa
+North America	Southeast USA Regional Contest	seusa
+North America	UCF Qualifier	ucf-qual
+North America	Southern California Regional Contest	socal
+Latin America	Latin America Championship	lac
+Latin America	Central America Programming Contest	central-america
+Latin America	Caribbean Finals	caribbean
+Latin America	Cuban Finals	cuba
+Latin America	South America Programming Contest	south-america
+Latin America	South America/North	south-america-north
+Latin America	South America/South	south-america-south
+Latin America	South America Brazil Programming Contest	brazil
+Northern Eurasia	Northern Eurasia Finals	nerc
+Northern Eurasia	Northeastern Europe Programming Contest	neerc
+Northern Eurasia	Urals Subregional Contest	urals
+Northern Eurasia	Georgia Subregional Contest	georgia
+Northern Eurasia	East Siberian Subregional Contest	east-siberia
+Northern Eurasia	Central Subregional Contest	central-russia
+Northern Eurasia	Western Subregional Contest	west-neerc
+Northern Eurasia	Kazakhstan Subregional Contest	kazakhstan
+Northern Eurasia	Azerbaijan Subregional Contest	azerbaijan
+Northern Eurasia	Far Eastern Subregional Contest	far-east-russia
+Northern Eurasia	West Siberian Subregional Contest	west-siberia
+Northern Eurasia	Uzbekistan Subregional Contest	uzbekistan
+Northern Eurasia	Moscow Subregional Contest	moscow
+Northern Eurasia	Southern Subregional Contest	south-russia
+Northern Eurasia	Armenia Subregional Contest	armenia
+Northern Eurasia	Northern Subregional Contest	north-russia
+Northern Eurasia	Kyrgyzstan Subregional Contest	kyrgyzstan
+Northern Eurasia	Taurida Subregional Contest	taurida
+Africa and Arab	Africa & Arab Collegiate Programming Championship	acpc
+Africa and Arab	Egyptian Collegiate Programming Contest	egypt
+Africa and Arab	Lebanese Collegiate Programming Contest	lebanon
+Africa and Arab	Kuwait Collegiate Programming Contest	kuwait
+Africa and Arab	Jordanian Collegiate Programming Contest	jordan
+Africa and Arab	Syrian Collegiate Programming Contest	syria
+Africa and Arab	Morocco Collegiate Programming Contest	morocco
+Africa and Arab	Palestinian Collegiate Programming Contest	palestine
+Africa and Arab	Tunisian Collegiate Programming Contest	tunisia
+Africa and Arab	Oman Collegiate Programming Contest	oman
+Africa and Arab	Algerian Collegiate Programming Contest	algeria
+Africa and Arab	Bahrain Collegiate Programming Contest	bahrain
+Africa and Arab	Qatar Collegiate Programming Contest	qatar
+Africa and Arab	Sudanese Collegiate Programming Contest	sudan
+Africa and Arab	Saudi Collegiate Programming Contest	saudi-arabia
+Africa and Arab	South Africa Programming Contest	south-africa
+Africa and Arab	Togolese Collegiate Programming Contest	togo
+Africa and Arab	Burkinabe Collegiate Programming Contest	burkina-faso
+Africa and Arab	Beninese Collegiate Programming Contest	benin
+Africa and Arab	Nigerian Collegiate Programming Contest	nigeria
+Africa and Arab	Ethiopian Collegiate Programming Contest	ethiopia
+Africa and Arab	Senegalese Collegiate Programming Contest	senegal
+Africa and Arab	Ivorian Collegiate Programming Contest	ivory-coast
+Africa and Arab	Angolan Collegiate Programming Contest	angola
+Asia West	Asia West Continent Final Contest	awc
+Asia West	Asia Programming Contest, Dhaka	dhaka
+Asia West	Asia Programming Contest, Kanpur	kanpur
+Asia West	Asia Programming Contest, Tehran	tehran
+Asia West	Asia Programming Contest, Bombay	bombay
+Asia West	Asia Programming Contest, Kolkata-Roorkee	kolkata-roorkee
+Asia West	Asia Programming Contest, Coimbatore	coimbatore
+Asia West	Asia Programming Contest, Kolkata	kolkata
+Asia West	Asia Programming Contest, Amritapuri	amritapuri
+Asia West	Asia Gwalior-Kanpur Regional Contest	gwalior-kanpur
+Asia West	Asia Kharagpur Regional Contest	kharagpur
+Asia West	Asia Gwalior Regional Contest	gwalior
+Asia West	Asia Lahore Regional Contest	lahore
+Asia West	Asia Chennai Regional Contest	chennai
+Asia West	Asia Kolkata-Kanpur Contest	kolkata-kanpur
+Asia West	Asia Kabul Regional Contest	kabul
+Asia West	Asia Gwalior-Pune Regional Contest	gwailor-pune
+Asia West	Asia Topi Regional On-site Contest	topi
+Asia West	Asia Mathura Kanpur Regional Contest	mathura
+Asia East	Asia East Continent Final Contest	aec
+Asia East	Asia Programming Contest, Shanghai	shanghai
+Asia East	Asia Programming Contest, Hong Kong	hong-kong
+Asia East	Asia Programming Contest, Beijing	beijing
+Asia East	Asia Programming Contest, Xian	xian
+Asia East	Asia Programming Contest, Guangzhou	ghuangzhou
+Asia East	Asia Programming Contest, ChengDu	chengdu
+Asia East	Asia Programming Contest, Hangzhou	hangzhou
+Asia East	Asia Programming Contest, Changchun	changchun
+Asia East	Asia Programming Contest, Nanjing	nanjing
+Asia East	Asia Harbin Contest	harbin
+Asia East	Asia Hefei Contest	hefei
+Asia East	Asia Ningbo Regional Contest	ningbo
+Asia East	Asia Wuhan Regional Contest	wuhan
+Asia East	Asia Tianjin Regional Contest	tianjin
+Asia East	Asia Fuzhou Regional Contest	fuzhou
+Asia East	Asia Dalian Regional Contest	dalian
+Asia East	Asia Jinhua Regional Contest	jinhua
+Asia East	Asia Changsha Regional Contest	changsha
+Asia East	Asia Mudanjiang Regional Contest	mudanjiang
+Asia East	Asia Anshan Regional Contest	anshan
+Asia East	Asia Shenyang Regional Contest	shenyang
+Asia East	Asia QingDao Regional Contest	qingdao
+Asia East	Asia Pyongyang Regional Contest	pyongyang
+Asia East	Asia Urumqi Regional Programming Contest	urumqi
+Asia East	Asia Nanning Regional Contest	nanning
+Asia East	Asia Jiaozuo Regional Contest	jiaozuo
+Asia East	Asia Xuzhou Regional Programming Contest	xuzhou
+Asia East	Asia Yinchuan Regional Contest	yinchuan
+Asia East	Asia Nanchang Regional Contest	nanchang
+Asia East	Asia Jinan Regional Contest	jinan
+Asia East	Asia Macau Regional Contest	macau
+Asia East	Asia Kunming Regional Contest	kunming
+Asia Pacific	Asia Pacific Championship	apc
+Asia Pacific	Asia Programming Contest, Tokyo	tokyo
+Asia Pacific	Asia Programming Contest, Taipei	taipei
+Asia Pacific	Asia Programming Contest, Kyoto	kyoto
+Asia Pacific	Asia Programming Contest, Seoul	seoul
+Asia Pacific	Asia Programming Contest, Singapore	singapore
+Asia Pacific	Asia Programming Contest, Tsukuba	tsukuba
+Asia Pacific	Asia Programming Contest, Hakodate	hakodate
+Asia Pacific	Asia Programming Contest, Taejon	taejon
+Asia Pacific	Asia Programming Contest, Kanazawa	kanazawa
+Asia Pacific	Asia Programming Contest, Kaohsiung	kaohsiung
+Asia Pacific	Asia Programming Contest, Manila	manila
+Asia Pacific	Asia Programming Contest, Aizu	aizu
+Asia Pacific	Asia Programming Contest, Ehime	ehime
+Asia Pacific	Asia Programming Contest, Hanoi	hanoi
+Asia Pacific	Asia Programming Contest, Yokohama	yokohama
+Asia Pacific	Asia Programming Contest, Danang	danang
+Asia Pacific	Asia Kuala Lumpur Contest	kuala-lumpur
+Asia Pacific	Asia Ho-Chi-Minh-City Contest	ho-chi-minh
+Asia Pacific	Asia Jakarta Contest	jakarta
+Asia Pacific	Asia Phuket Regional Contest	phuket
+Asia Pacific	Asia Hsinchu Regional Contest	hsinchu
+Asia Pacific	Asia Daejeon Regional Contest	daejeon
+Asia Pacific	Asia Fukuoka Regional Contest	fukuoka
+Asia Pacific	Asia Hatyai Regional Contest	hatyai
+Asia Pacific	Asia Chia-Yi Regional Contest	chiayi
+Asia Pacific	Asia Bangkok Regional Contest	bangkok
+Asia Pacific	Asia Taichung Regional Contest	taichung
+Asia Pacific	Asia Nha Trang Regional Contest	nha-trang
+Asia Pacific	Asia Chung-Li Regional Contest	chung-li
+Asia Pacific	Asia Yangon Regional Programming Contest	yangon
+Asia Pacific	Asia Hua-Lien Regional Contest	hualien
+Asia Pacific	Asia Nakhon Pathom Regional Contest	nakhon-pathom
+Asia Pacific	Asia Taipei-Hsinchu Site Programming Contest	taipei-hsinchu
+Asia Pacific	Asia Can Tho Regional Contest	can-tho
+Asia Pacific	Asia Taoyuan Regional Programming Contest	taoyuan
+Asia Pacific	Asia Hue City Regional Contest	hue
+Asia Pacific	South Pacific Programming Contest	south-pacific
+Asia Pacific	South Pacific Western Division	south-pacific-west
+Asia Pacific	South Pacific Central Division	south-pacific-central
+Asia Pacific	South Pacific Eastern Division	south-pacific-east
+Asia Pacific	South Pacific Independent Regional Contest Divisional	south-pacific-division
+Asia Pacific	New Zealand Programming Contest	nzpc
 Asia Pacific	Australian Programming Contest	australia
