@@ -1,4 +1,4 @@
-name: Clean TSV File
+name: Clean TSV Files
 
 on:
   workflow_dispatch:
@@ -7,10 +7,10 @@ on:
       - '**.tsv'
 
 jobs:
-  clean-tsv:
+  clean-tsvs:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -18,33 +18,31 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Install pandas
         run: pip install pandas
 
-      - name: Clean TSV File
+      - name: Clean all TSVs in data/
         run: |
           import pandas as pd
+          from pathlib import Path
           import os
 
-          input_path = "data/input.tsv"
-          output_path = "data/cleaned.tsv"
-          required_cols = ["region-name", "full-name", "short-name"]
+          input_dir = Path("data")
+          output_dir = Path("cleaned")
+          output_dir.mkdir(exist_ok=True)
 
-          df = pd.read_csv(input_path, sep='\t', dtype=str).fillna('')
-
-          df.columns = [c.strip().lower().replace(' ', '-').replace('_', '-') for c in df.columns]
-          df = df.rename(columns={
-              'region': 'region-name',
-              'regionname': 'region-name',
-              'fullname': 'full-name',
-              'name': 'full-name',
-              'short': 'short-name',
-              'shortname': 'short-name'
-          })
-
-          df = df[[c for c in required_cols if c in df.columns]]
-          df = df.applymap(lambda x: x.strip())
-
-          os.makedirs(os.path.dirname(output_path), exist_ok=True)
-          df.to_csv(output_path, sep='\t', index=False)
+          for tsv_file in input_dir.glob("*.tsv"):
+              df = pd.read_csv(tsv_file, sep='\t', dtype=str).fillna('')
+              df.columns = [c.strip().lower().replace(' ', '-').replace('_', '-') for c in df.columns]
+              df = df.rename(columns={
+                  'region': 'region-name',
+                  'regionname': 'region-name',
+                  'fullname': 'full-name',
+                  'name': 'full-name',
+                  'short': 'short-name',
+                  'shortname': 'short-name'
+              })
+              df = df.applymap(lambda x: x.strip())
+              out_path = output_dir / tsv_file.name
+              df.to_csv(out_path, sep='\t', index=False)
         shell: python
