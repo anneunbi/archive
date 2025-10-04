@@ -24,7 +24,6 @@ jobs:
         id: select
         run: |
           set -euo pipefail
-
           if [ -n "${{ github.event.inputs.path }}" ]; then
             FILES=$(printf "%s\n" "${{ github.event.inputs.path }}" | xargs -I{} bash -lc 'ls -1 {} 2>/dev/null || true')
           elif [ "${{ github.event_name }}" = "push" ]; then
@@ -37,20 +36,28 @@ jobs:
           else
             FILES=$(git ls-files '*.tsv')
           fi
-
           printf "%s\n" ${FILES:-} | sed '/^$/d' > files.txt || true
-
           if [ -s files.txt ]; then
             echo "has_files=true" >> "$GITHUB_OUTPUT"
           else
             echo "has_files=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Show selected files
+        run: |
+          if [ -s files.txt ]; then
+            echo "TSV files to process:"
+            cat files.txt
+          else
+            echo "No TSV files selected."
+          fi
+
       - name: Clean TSVs
         if: ${{ steps.select.outputs.has_files == 'true' }}
+        shell: bash
         run: |
           set -euo pipefail
-          cat > clean_tsvs.py <<'PY'
+          python - <<'PY'
 import csv, sys, re
 from pathlib import Path
 from io import StringIO
@@ -133,7 +140,6 @@ for f in file_list:
 if not changed:
     print("No changes needed.")
 PY
-          python clean_tsvs.py
 
       - name: Commit and push changes
         if: ${{ steps.select.outputs.has_files == 'true' }}
