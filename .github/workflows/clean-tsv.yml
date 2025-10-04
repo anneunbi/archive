@@ -1,155 +1,49 @@
-name: Clean TSVs
+name: Clean TSV File
 
 on:
   push:
     paths:
-      - "**/*.tsv"
-  workflow_dispatch:
-    inputs:
-      path:
-        description: "TSV file or glob to clean (defaults to changed *.tsv)"
-        required: false
-        default: ""
-
-permissions:
-  contents: write
+      - 'data/input.tsv'
 
 jobs:
-  clean:
+  clean-tsv:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Select TSV files
-        id: select
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install pandas
+
+      - name: Clean TSV File
         run: |
-          set -euo pipefail
-          if [ -n "${{ github.event.inputs.path }}" ]; then
-            FILES=$(printf "%s\n" "${{ github.event.inputs.path }}" | xargs -I{} bash -lc 'ls -1 {} 2>/dev/null || true')
-          elif [ "${{ github.event_name }}" = "push" ]; then
-            BEFORE="${{ github.event.before }}"
-            if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-              FILES=$(git ls-files '*.tsv')
-            else
-              FILES=$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- '*.tsv')
-            fi
-          else
-            FILES=$(git ls-files '*.tsv')
-          fi
-          printf "%s\n" ${FILES:-} | sed '/^$/d' > files.txt || true
-          if [ -s files.txt ]; then
-            echo "has_files=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_files=false" >> "$GITHUB_OUTPUT"
-          fi
+          import pandas as pd
+          import os
 
-      - name: Show selected files
-        run: |
-          if [ -s files.txt ]; then
-            echo "TSV files to process:"
-            cat files.txt
-          else
-            echo "No TSV files selected."
-          fi
+          input_path = "data/input.tsv"
+          output_path = "data/cleaned.tsv"
+          required_cols = ["region-name", "full-name", "short-name"]
 
-      - name: Clean TSVs
-        if: ${{ steps.select.outputs.has_files == 'true' }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-import csv, sys, re
-from pathlib import Path
-from io import StringIO
+          df = pd.read_csv(input_path, sep='\t', dtype=str).fillna('')
 
-def norm_header(h):
-    if h is None:
-        return ""
-    h = h.strip().lower()
-    h = h.replace("_", "-")
-    h = re.sub(r"\s+", "-", h)
-    return h
+          df.columns = [c.strip().lower().replace(' ', '-').replace('_', '-') for c in df.columns]
+          df = df.rename(columns={
+              'region': 'region-name',
+              'regionname': 'region-name',
+              'fullname': 'full-name',
+              'name': 'full-name',
+              'short': 'short-name',
+              'shortname': 'short-name'
+          })
 
-def clean_val(v):
-    if v is None:
-        return ""
-    v = v.strip()
-    v = re.sub(r"\s+", " ", v)
-    return v
+          df = df[[c for c in required_cols if c in df.columns]]
+          df = df.applymap(lambda x: x.strip())
 
-target_cols = ["region-name", "full-name", "short-name"]
-changed = False
-
-file_list = Path("files.txt").read_text(encoding="utf-8").splitlines()
-for f in file_list:
-    p = Path(f)
-    if not p.exists() or p.is_dir():
-        continue
-
-    with p.open("r", encoding="utf-8", newline="") as fh:
-        reader = csv.reader(fh, dialect=csv.excel_tab)
-        rows = list(reader)
-
-    if not rows:
-        continue
-
-    raw_headers = rows[0]
-    header_map = {norm_header(h): i for i, h in enumerate(raw_headers)}
-    out_rows = []
-
-    if set(target_cols).issubset(header_map.keys()):
-        data_rows = rows[1:]
-    else:
-        aliases = {
-            "region": "region-name",
-            "regionname": "region-name",
-            "fullname": "full-name",
-            "name": "full-name",
-            "shortname": "short-name",
-            "short": "short-name",
-        }
-        mapped = {}
-        for k, idx in header_map.items():
-            k2 = aliases.get(k, k)
-            if k2 in target_cols and k2 not in mapped:
-                mapped[k2] = idx
-        header_map = mapped
-        data_rows = rows[1:]
-
-    for r in data_rows:
-        row = []
-        for col in target_cols:
-            idx = header_map.get(col)
-            val = r[idx] if (idx is not None and idx < len(r)) else ""
-            row.append(clean_val(val))
-        if any(x != "" for x in row):
-            out_rows.append(row)
-
-    output = [target_cols] + out_rows
-    sio = StringIO()
-    writer = csv.writer(sio, dialect=csv.excel_tab, lineterminator="\n")
-    for rr in output:
-        writer.writerow(rr)
-    new_content = sio.getvalue()
-
-    old_content = p.read_text(encoding="utf-8")
-    if new_content != old_content:
-        p.write_text(new_content, encoding="utf-8")
-        changed = True
-
-if not changed:
-    print("No changes needed.")
-PY
-
-      - name: Commit and push changes
-        if: ${{ steps.select.outputs.has_files == 'true' }}
-        run: |
-          set -euo pipefail
-          if git diff --quiet; then
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "chore(tsv): normalize headers and whitespace for TSV files"
-          git push
+          os.makedirs(os.path.dirname(output_path), exist_ok=True)
+          df.to_csv(output_path, sep='\t', index=False)
+        shell: python
