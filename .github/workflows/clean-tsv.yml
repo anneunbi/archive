@@ -1,3 +1,51 @@
+name: Clean TSVs
+
+on:
+  push:
+    paths:
+      - "**/*.tsv"
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "TSV file or glob to clean (defaults to changed *.tsv)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select TSV files
+        id: select
+        run: |
+          set -euo pipefail
+
+          if [ -n "${{ github.event.inputs.path }}" ]; then
+            FILES=$(printf "%s\n" "${{ github.event.inputs.path }}" | xargs -I{} bash -lc 'ls -1 {} 2>/dev/null || true')
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            BEFORE="${{ github.event.before }}"
+            if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              FILES=$(git ls-files '*.tsv')
+            else
+              FILES=$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- '*.tsv')
+            fi
+          else
+            FILES=$(git ls-files '*.tsv')
+          fi
+
+          printf "%s\n" ${FILES:-} | sed '/^$/d' > files.txt || true
+
+          if [ -s files.txt ]; then
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Clean TSVs
         if: ${{ steps.select.outputs.has_files == 'true' }}
         run: |
@@ -86,3 +134,16 @@ if not changed:
     print("No changes needed.")
 PY
           python clean_tsvs.py
+
+      - name: Commit and push changes
+        if: ${{ steps.select.outputs.has_files == 'true' }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore(tsv): normalize headers and whitespace for TSV files"
+          git push
